@@ -16,7 +16,7 @@
 %%% REMEMBER TO CHANGE THE SEMESTER AND YEAR
 \conferenceinfo{UMM CSci Senior Seminar Conference, December 2013}{Morris, MN}
 
-\title{Something about NP-complete problems}
+\title{Usability of Error Messages for Novice Programmers}
 
 \numberofauthors{1}
 
@@ -27,38 +27,31 @@
 % affiliation/address with \affaddr, and tag the
 % e-mail address with \email.
 \alignauthor
-Chris S. Student\\
+Paul A. Schliep\\
 	\affaddr{Division of Science and Mathematics}\\
 	\affaddr{University of Minnesota, Morris}\\
 	\affaddr{Morris, Minnesota, USA 56267}\\
-	\email{cssxxxx00000@morris.umn.edu}
+	\email{schli202@morris.umn.edu}
 }
 
 \maketitle
 
 \begin{abstract}
-This paper discusses new results in NP-complete problems and the use of distributed
-networks to solve certain partial cases of NP-complete problems.
+This paper discusses how well error messages can help novice programmers find mistakes in their programs and what aspects make an error message more user-friendly for introductory computer science students. I will also be discussing several methodologies and programs developed to help improve the experience a novice programmer has when attempting to understand causes for errors. 
 \end{abstract}
 
-\section{Introduction}
-I will focus on using the approach Blah for solving partial cases of
-NP-complete problems on distributed networks.
+\section{Key Points}
+The question being addressed in this research is to figure out how well error messages in programming languages help introductory students find mistakes in their programs. This question is being addressed through various methods of evaluating the usability of the error messages and the methodologies in which they can be or potentially have been improved. The methods of evaluating the error messages include usability studies, trials, and developed rubric to assess them, and some of the methodologies that suggested improvements to the messages include a set of suggested principles for compiler errors, enhancement of syntax errors, and proposed recommendations for exception messages.
 
-I plan to use the following sources:
-\begin{itemize}
-\item I expect~\cite{OM:2008} to be one of my main sources, and I'm still looking for another two ``core'' papers to build on.
-\item I may use~\cite{Brun:2008} for comparison. 
-\item I'll use~\cite{Aaronson:2005, wiki:np-complete} and possibly selected chapters of~\cite{Garey:1979} as background. 
-\end{itemize}
+The sources for this paper each propose or analyze something new to help address this problem while still being related. On Compiler Error Messages: What They Say and What They Mean discuss the current state of compiler error messages, how that affects novice programmers, and what they suggest to resolve those issues. Enhancing Syntax Error Messages Appears Ineffectual talks about the implications of syntax error messages are on how introductory CS students can fix errors in their programs and they present an enhanced library of compiler messages specifically for syntax errors and analyze its effectiveness. Mind Your Language: On Novices’ Interactions with Error Messages and Measuring the Effectiveness of Error Messages Designed for Novice Programmers both evaluate error messages in the Racket programming language and discuss how well they help introductory students fix mistakes in their programs, and how to apply their developed rubric to improve these error messages. Each paper discusses an analysis of different types of error messages and in what ways they may be resolved, and by studying these analyses and their respective methodologies, we can be able to compare and contrast their methods and results. 
 
-As mentioned above I need two other ``core'' papers, and I'm still looking for good examples that I can use to explain the 
+Error message usability has been tested for many years, but it has gained more attraction in recent years with the rising studies in HCI. Through these studies, developers and professors have been able to implement error message libraries and test them, but not always with conclusive results as seen in my source, Enhancing Syntax Error Messages Appears Ineffectual where the number of students’ syntax errors did not fall. 
 
-I was initially considering algorithms on compete graphs as a possible topic, and looked over~\cite{winkler1984isometric, dobkin1987delaunay, folkman1970graphs} before I settled on my current topic.
+In order to explain some of the analyses of the error messages, the reader will need to be informed of concepts such as usability studies and compiler errors.
 
 % The following two commands are all you need to
 % produce the bibliography for the citations in your paper.
-\bibliographystyle{abbrv}
+\bibliographystyle{acm}
 % annotated_bibliography.bib is the name of the BibTex file containing 
 % all the bibliography entries for this example. Note that you *don't* include the .bib ending
 % in the \bibliography command.
@@ -68,6 +61,7 @@ I was initially considering algorithms on compete graphs as a possible topic, an
 %     pdflatex bibtex pdflatex pdflatex
 % in order to see all the citation references correctly.
 
+% That's all folks!
 \end{document}
 
 
