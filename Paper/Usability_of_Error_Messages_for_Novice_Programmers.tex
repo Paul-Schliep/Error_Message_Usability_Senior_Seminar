@@ -69,7 +69,8 @@ This paper is divided into five sections. In Section 2 we discuss usability stud
 
 
 \section{Background}\label{background}
-This is where we will describe the concepts such as functional and imperative languages, usability studies, and error message types needed to explain the research done on error message usability. We will use multiple sources from primary and background to describe these concepts. 
+In order to discuss the analyses of error messages, we need to understand several concepts on error types and usability. These concepts include Compiler errors, Syntax errors, usability studies, and Human Computer Interaction (HCI). We will also be discussing the programming languages and tools whose error messages were analyzed. This includes Racket, C++, and Java programming languages and an overview of Integrated Development Environment (IDE) and DrRacket. 
+
 
 \begin{itemize}
 	\item Discuss Racket
@@ -79,30 +80,59 @@ This is where we will describe the concepts such as functional and imperative la
 	\item Discuss Java
 	\item Discuss Compiler errors
 	\item Discuss Syntax errors
+	\item Discuss parser
 \end{itemize}
+
+\subsection{Error Types}
 
 \todo[inline, color=red]{TODO}
 
-\subsection{Runtime and Compiler errors}
-
 \subsection{Human-computer interaction and usability studies}
+
+\todo[inline, color=red]{TODO}
 
 \subsection{Overview of programming languages and tools analyzed}
 
+\todo[inline, color=red]{TODO}
+
 
 \section{Analyses}\label{analyses}
-This section will discuss two different studies performed on the usability of error messages and what the results of those studies are. The first analysis will discuss how well the error messages in Racket and DrRacket help introductory students debug their programs. The second analysis will discuss the effectiveness of compiler error messages in the C++ programming language
+This section will discuss two different studies performed on the usability of error messages and what the results of those studies are. The first analysis will discuss how well the error messages in Racket and DrRacket help introductory students debug their programs. The second analysis will discuss the effectiveness of compiler error messages in the C++ programming language. 
 \todo[inline, color=orange]{needs work}
 
 
 \subsection{Analysis of error messages in Racket and DrRacket}
-This will be a combination of two main sources used for this part: Mind Your Language: On Novices' Interactions with Error Messages and Measuring the Effectiveness of Error Messages Designed for Novice Programmers
+In the spring of 2010, Marceau, Fisler, and Krishnamurthi ran a usability study on error messages in DrRacket. The study involved configuring DrRacket to save a copy of each program a student tried to run as well as the error message through 6 50 minute lab sessions ~\cite{Marceau:2011:MEE:1953163.1953308}. The authors were interested in which error messages are effective and in what ways and how well DrRacket's text highlighting can help a student.  
 
-In the spring of 2010, Marceau, Fisler, and Krishnamurthi ran a usability study on error messages in DrRacket. They had 24 students from an introductory programming course participate in this study. They were interested in which error messages are effective and in what ways.  In order to measure effectiveness, the authors developed a rubric which determined whether the student made a reasonable edit in response to the error message ~\cite{Marceau:2011:MEE:1953163.1953308}. The rubric was meant to distinguish how an error message would fail or succeed. They determined that an error message is effective if a student can read it, understand it, and use that information to figure out how to resolve the issue. 
-\todo[inline, color=red]{TODO}
+
+In order to measure effectiveness, the authors developed a rubric which determined whether the student made a reasonable edit in response to the error message ~\cite{Marceau:2011:MEE:1953163.1953308}. The rubric was meant to distinguish how an error message would fail or succeed. They determined that an error message is effective if a student can read it, understand it, and use that information to figure out how to resolve the issue. 
+
+Figure \ref{fig:racketerrormessage} shows an example of an error message in Racket that is not effective for a student. The message is contradicting itself as it does follow an open parenthesis, but the parser thinks the \texttt{and} is an independent part from the \texttt{cond}.
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[keepaspectratio, width=0.55\textwidth]{MEE_example.png}
+  \caption{Example of an ineffective error message in Racket}
+  \label{fig:racketerrormessage}
+\end{figure}
+
+Marceau, Fisler, and Krishnamurthi grouped messages into nine most common error categories in their results from the study. Their rubric found the level of severity of the error messages. Through their data collection at the end of the study, they also found the level of occurrence of each error type from each lab and which error messages were poorly responded to, indicated as \textit{\%error} and \textit{\%bad}, respectively. \textit{\#bad} shows the level of likelihood of recurrence of the respective error message. The values of interest are the values enclosed in a box, which are the higher level \textit{\#bad} values, as seen in figure \ref{fig:drracketstudy}. 
+
+The authors found from the data, that students have difficulties with certain errors at different points in the course. For example, in Lab 5 of the course, the authors found that the numerous argument count errors trace to mistakes in properly closing expressions. The error messages that the student saw from these mistakes did not match with the actual error the student encountered with their program. 
+
+
+\begin{figure}[t!]
+  \centering
+  \includegraphics[keepaspectratio, width=0.55\textwidth]{MEE_Data.png}
+  \caption{Results from DrRacket study}
+  \label{fig:drracketstudy}
+\end{figure}
+
+\todo[inline, color=orange]{needs work}
+\todo[inline, color=green]{add image of results from MEE, table 1, coding results}
 
 \subsection{Analysis of compiler messages in C++}
-This will be a combination of two main sources used for this part: On Compiler Error Messages: What They Say and some of Enhancing Syntax Error Messages Appears Ineffectual. (look at appendices - case studies, use examples and code snippets from there)
+Compiler error messages are often difficult to understand for many programmers, especially introductory programmers. 
 
 
 \section{Methodologies}
@@ -139,13 +169,15 @@ Discussion of the direction usability of error messages will be taken and how th
 % sample_paper.bib is the name of the BibTex file containing the
 % bibliography entries. Note that you *don't* include the .bib ending here.
 \bibliography{Usability_of_Error_Messages_for_Novice_Programmers}  
-~\cite{Traver:2010}
-~\cite{Marceau:2011:MYL:2048237.2048241}
-~\cite{Marceau:2011:MEE:1953163.1953308}
+
+\todo[inline, color=blue]{Citing sources for references}
 ~\cite{Denny:2014:ESE:2591708.2591748}
 ~\cite{Hartmann:2010:OPS:1753326.1753478}
-~\cite{Murphy:2008:BTD:1352135.1352193}
 ~\cite{Isa:1983:MOE:800045.801583}
+~\cite{Marceau:2011:MEE:1953163.1953308}
+~\cite{Marceau:2011:MYL:2048237.2048241}
+~\cite{Murphy:2008:BTD:1352135.1352193}
+~\cite{Traver:2010}
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
