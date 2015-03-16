@@ -52,7 +52,7 @@ Error messages are an important tool for programmers to help find and fix errors
 \todo[inline]{Will most likely be changing}
 \end{abstract}
 
-\keywords{Novice programmers, usability, error messages, usability studies, compiler errors, exception errors, syntax errors, functional-programming}
+\keywords{Novice programmers, usability, error messages, usability studies, compiler errors, syntax errors}
 
 
 \section{Introduction}\label{intro}
@@ -69,31 +69,56 @@ This paper is divided into five sections. In Section 2 we discuss usability stud
 
 
 \section{Background}\label{background}
-In order to discuss the analyses of error messages, we need to understand several concepts on error types and usability. These concepts include Compiler errors, Syntax errors, usability studies, and Human Computer Interaction (HCI). We will also be discussing the programming languages and tools whose error messages were analyzed. This includes Racket, C++, and Java programming languages and an overview of Integrated Development Environment (IDE) and DrRacket. 
+In order to discuss the analyses of error messages, we need to understand several concepts on error types and usability. These concepts include Compiler errors, Syntax errors, usability studies, and Human Computer Interaction. We will also be discussing the programming languages and tools whose error messages were analyzed. This includes Racket, C++, and Java programming languages and an overview of Integrated Development Environment (IDE) and DrRacket. 
 
-
-\begin{itemize}
-	\item Discuss Racket
-	\item Discuss IDEs
-	\item Discuss DrRacket
-	\item Discuss C++
-	\item Discuss Java
-	\item Discuss Compiler errors
-	\item Discuss Syntax errors
-	\item Discuss parser
-\end{itemize}
-
-\subsection{Error Types}
-
-\todo[inline, color=red]{TODO}
 
 \subsection{Human-computer interaction and usability studies}
 
-\todo[inline, color=red]{TODO}
+The study of Human-Computer Interaction, or HCI, researches how computer technology is used, specifically on the interfaces between the user and the programs of the computer. As Traver notes, "HCI is a discipline that aims to provide user interfaces that make working with a computer a more productive, effective, and enjoyable task." ~\cite{Traver:2010} Much of the research analyzed in this paper is from an HCI point of view, rather than a more technical approach. So, some of the areas we will be looking at in error message design will be the language used in the message, accuracy and precision of the messages, and other interface elements. 
+
+In order to analyze these messages in an HCI perspective and attain qualitative and quantitative information about error message usability, a usability test or case study may be performed. A usability test is a technique often used in HCI studies to evaluate a program or product by testing it on users. A case study is a research method that closely studies a group of participants, in terms of this paper, introductory students in a class room, and collects data about participants by observations and interviews. Many of the studies performed on error messages analyzed in this paper are using a case study and usability test design. 
+
+\todo[inline, color=orange]{needs work}
+
 
 \subsection{Overview of programming languages and tools analyzed}
 
-\todo[inline, color=red]{TODO}
+As mentioned earlier, we will primarily be analyzing how introductory students learning programming interact with error messages in terms of usability. However, in order to discuss the research and studies done on error messages, we need to define the languages and programs used.  
+
+In subsection 3.1, we are discussing a study performed by Marceau, Fisler, and Krishnamurthi that analyzes the error messages in the Racket programming language and DrRacket integrated development environment. Racket is a member of the Lisp family of programming languages, specifically designed for students new to programming. An integrated development envirnoment, or IDE, is an application that has packaged several other programs typically consisting of a text editor, compiler, and other programs used to debug code. DrRacket is an IDE meant for writing programs in Racket typically geared toward introductory students. Although Racket and DrRacket are typically geared toward introductory students, the authors of the study still noticed students struggling with debugging and understanding error messages, so Marceau, Fisler, and Krishnamurthi were interested in seeing how students responded to error messages in DrRacket~\cite{Marceau:2011:MYL:2048237.2048241}. A rubric for suggestions on fixing these error messages in Racket and DrRacket is discussed in subsection 4.1 
+
+In subsection 3.2, we are discussing a study by Traver on compiler error message design in C++ specifically. C++ is a widely used programming language not designed for introductory programming but is occasionally taught in introductory computer science classes, but is more designed toward system programming (such as for operating systems). In subsection 4.3, we will be discussing a system meant to enhance Syntax error messages in the Java programming language. Java is a language similar to C++ and is also not meant as an introductory language as Racket, but is also occasionally taught in introductory classes. 
+
+\todo[inline, color=orange]{needs work}
+
+
+\subsection{Compiler and compiler errors}
+
+There are several types of errors a user will encounter while programming. In this paper, we will be discussing the general usability of error message design, but in order to do so, we will need to define compiler errors. A compiler is a computer program (or set of programs) that transforms source code written in a programming language (the source language) into another computer language.  A compilation error refers to a state when a compiler fails to compile a piece of computer program source code, either due to errors in the code, or, more unusually, due to errors in the compiler itself. Being able to resolve compiler errors is crucial because it is the first step toward resolving issues with the program as the code will not run when there are compiler errors. Below is an example of a compiler error in C++, modified from ~\cite{Traver:2010}. In this code snippet, the keyword friend is used inside the declaration of a class giving friend to a particular function but not when defining that function. 
+
+\begin{verbatim}
+friend ostream & operator << 
+(ostream & os,constSavingAccount & sA){
+os << "this is a saving account";
+}
+
+Error: can not intialize friend function '<<' 
+friend declaration not in class definition
+\end{verbatim}
+
+There is also a subset of a compiler error, called a Syntax error, which is "a mistake in the syntax of some strange sequence of characters or tokens that is intended to be stated in a particular programming language." Syntax error messages are especially important for introductory students to develop their debugging skills. As Kummerfield and Kay note ~\cite{Kummerfeld:2003:NBF:858403.858416}, "The usability of compiler errors are important because Syntax error correction is the first step in the debugging process. It is not possible to continue program development until the code compiles. This means it is a crucial part of the error correction process." We will be discussing Syntax error messages more in section 4. Below is an example of a Syntax error in Java (modified from  ~\cite{Denny:2014:ESE:2591708.2591748}). In this scenario, the error message is trying to tell the user that the if statement needs to be surrounded by opening and closing parentheses.
+
+\begin{verbatim}
+if (score < 0) || (score > 100) 
+Syntax error on token "||", if expected
+\end{verbatim}
+
+This paper will also briefly discuss the parser, which is a program usually part of a compiler that receives input as program instructions or markup and breaks them into parts that can be managed by other programming (such as other components in a compiler). The parser is also the program that checks for correct syntax in the process of building data structures from the inputs. 
+
+Since introductory students will be new to programming, they will be dealing with compiler and Syntax errors early on, so the usability of these error messages is an important part in order for the students to start learning the concepts. These error compiler error messages are what students will be using to debug their programs often while learning the programming language, and these messages need to be user-friendly for them to better understand how to fix their mistake and learn from it. However, compiler error messages are often cryptic and difficult to understand for many programmers, especially for students who are new to programming. Unfortunately, as Traver notes, "most related disciplines, including compiler technology, have not paid much attention to this important aspect that affects programmers significantly, apparently because it is felt that programmers should adapt to compilers." ~\cite{Traver:2010}
+
+\todo[inline, color=orange]{find sources to define syntax and compiler errors}
+\todo[inline, color=green]{Add examples of syntax and compiler errors?}
 
 
 \section{Analyses}\label{analyses}
@@ -111,7 +136,7 @@ Figure \ref{fig:racketerrormessage} shows an example of an error message in Rack
 
 \begin{figure}[t!]
   \centering
-  \includegraphics[keepaspectratio, width=0.55\textwidth]{MEE_example.png}
+  \includegraphics[keepaspectratio, width=0.5\textwidth]{MEE_example.png}
   \caption{Example of an ineffective error message in Racket}
   \label{fig:racketerrormessage}
 \end{figure}
@@ -123,7 +148,7 @@ The authors found from the data, that students have difficulties with certain er
 
 \begin{figure}[t!]
   \centering
-  \includegraphics[keepaspectratio, width=0.55\textwidth]{MEE_Data.png}
+  \includegraphics[keepaspectratio, width=0.5\textwidth]{MEE_Data.png}
   \caption{Results from DrRacket study}
   \label{fig:drracketstudy}
 \end{figure}
@@ -178,6 +203,7 @@ Discussion of the direction usability of error messages will be taken and how th
 ~\cite{Marceau:2011:MYL:2048237.2048241}
 ~\cite{Murphy:2008:BTD:1352135.1352193}
 ~\cite{Traver:2010}
+~\cite{Kummerfeld:2003:NBF:858403.858416}
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
