@@ -178,30 +178,30 @@ personName = "Francis"
 personName = 7
 \end{verbatim}
 
-This sequence of statements is illegal in a statically typed language since we are binding a string to \texttt{personName}, then an integer to\texttt{personName}.
+This sequence of statements is illegal in a statically typed language since we are binding a string to \texttt{personName}, then an integer to \texttt{personName}.
 This statement would then throw an error during compile time.
 This is a legal statement in a dynamically typed language, however, since the interpreter deals with types during the runtime phase. 
 
 
 \section{Analyses}\label{sec:analyses}
-This section will discuss two different studies performed on the usability of error messages and what the results of those studies are.
+In this section, we discuss two different studies performed on the usability of error messages and their results.
 The first analysis will discuss how well the error messages in Racket and DrRacket help introductory students debug their programs.
 The second analysis will discuss the effectiveness of compiler error messages in the C++ programming language. 
 
 
 \subsection{Analysis of error messages in Racket and DrRacket}\label{racket analysis}
 Marceau, Fisler, and Krishnamurthi helped design DrRacket error messages so that they can be more helpful to beginner programmers.
-However, Marceau et al. still noticed students struggling with debugging and understanding the error messages, so the authors were interested in seeing how their students responded to these error messages~\cite{Marceau:2011:MYL:2048237.2048241}.
+However, Marceau et al. still noticed students struggling with debugging and understanding the error messages, so the authors were interested in seeing how their students responded to these error messages and to identify specific error messages that performed poorly~\cite{Marceau:2011:MYL:2048237.2048241}.
 In the spring of 2010, Marceau, Fisler, and Krishnamurthi ran a case study on error messages in DrRacket.
 The study involved configuring DrRacket to save a copy of each program a student tried to run as well as the error message through six 50 minute lab sessions ~\cite{Marceau:2011:MEE:1953163.1953308}.
 The authors were interested in which error messages are effective and how well DrRacket's text highlighting can help a student.  
 
 In order to measure effectiveness, the authors developed a rubric which determined whether the student made a reasonable edit in response to the error message~\cite{Marceau:2011:MEE:1953163.1953308}.
 The rubric was meant to distinguish how an error message would fail or succeed.
-They determined that an error message is effective if a student can read it, understand it, and use that information to figure out how to resolve the issue. 
+They determined that an error message is effective if a student can read it, understand it, and use that information to figure out how to resolve the issue.
 
-Figure \ref{fig:racketerrormessage} shows an example of an error message in Racket that is not effective for a student.
-The message is contradicting itself as it does follow an open parenthesis, but the parser thinks the \texttt{and} is an independent part from the \texttt{cond}.
+Figure \ref{fig:racketerrormessage} shows an example of an error message in Racket that Marceau et al. found as not effective for helping a student debug their program.
+The message is contradicting itself as \texttt{and} does follow an open parenthesis, but the parser thinks \texttt{and} is an independent entity from \texttt{cond}.
 
 \begin{figure}[t!]
   \centering
@@ -211,27 +211,30 @@ The message is contradicting itself as it does follow an open parenthesis, but t
 \end{figure}
 
 Marceau, Fisler, and Krishnamurthi grouped messages into nine most common error categories in their results from the study.
-Their rubric found the level of severity of the error messages.
-Through their data collection at the end of the study, they found the level of occurrence of each error type from each lab and which error messages were poorly responded to, indicated as \textit{\%error} and \textit{\%bad}, respectively.
+Through their data collection at the end of the study, they found the level of occurrence of each error type from each lab and which error messages were poorly responded to, indicated as \textit{\%error} and \textit{\%bad} in figure 2, respectively.
 \textit{\#bad} shows the level of likelihood of recurrence of the respective error message.
-The values of interest are the values enclosed in a box, which are the higher level \textit{\#bad} values, as seen in figure \ref{fig:drracketstudy}. 
+The values of interest are the \textit{\#bad} values enclosed in a box and the highest \textit{\%bad} values, as seen in figure \ref{fig:drracketstudy}). 
 
-The authors found from the data, that students have difficulties with certain errors at different points in the course.
-For example, in Lab 5 of the course, the authors found that the numerous argument count errors trace to mistakes in properly closing expressions.
-The error messages that the student saw from these mistakes did not match with the actual error the student encountered with their program. 
+The data the authors gathered helped identify errors students found challenging.
+The authors found that students have difficulties with certain errors at different points in the course, as expected since curricular aspects of the labs affect error patters.
+Many of the errors students struggled with were consistent with the course, such as difficulties with syntax errors in the first lab since students are still beginning to learn the language syntax.
+However, the data is not entirely a representation of students' conceptual difficulties with the course, as Marceau et al. found.
+The error messages a student receives, according to Marceau et al, ``is often not a direct indicator of the underlying error.''~\cite{Marceau:2011:MEE:1953163.1953308}
+For example, in lab number six, numerous \texttt{unbound-id} errors occurred, an unbound identifier error, which occurs when the compiler finds a variable that was not defined. 
+However, the authors found that the actual problem students had was improperly using field reference operators and the actual errors they should have received was not given.
+This suggests that there are some issues in the effectiveness of the error messages.
 
-\todo[inline, color=orange]{Rephrase paragraph}
-
-\begin{figure}[t!]
+\begin{figure*}
   \centering
-  \includegraphics[keepaspectratio, width=0.5\textwidth]{MEE_Data.png}
+  \includegraphics[keepaspectratio, width=\textwidth]{MEE_Data.png}
   \caption{Results from DrRacket study}
   \label{fig:drracketstudy}
-\end{figure}
-
-\todo[inline, color=orange]{fix image positions}
+\end{figure*}
 
 \subsection{Analysis of compiler messages in C++}\label{subsec:compiler analysis}
+
+\todo[inline, color=red]{heavily edit section}
+
 Compiler error messages are often cryptic and difficult to understand for many programmers, especially for students who are new to programming.
 Unfortunately, as Traver notes, ``most related disciplines, including compiler technology, have not paid much attention to this important aspect that affects programmers significantly, apparently because it is felt that programmers should adapt to compilers.'' ~\cite{Traver:2010}
 Not a lot of research has been conducted on compiler error message design.
