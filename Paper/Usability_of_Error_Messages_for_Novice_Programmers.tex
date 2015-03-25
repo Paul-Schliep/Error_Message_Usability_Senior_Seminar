@@ -53,7 +53,7 @@ Error messages are especially critical for introductory programmers in understan
 Not all error messages are beneficial for helping novice programmers.
 This paper discusses how well error messages can help introductory students resolve mistakes in their programs and what aspects make an error message more user-friendly for introductory programmers.
 After that, we discuss the analyses of syntax, compiler, and exception errors and their results.
-We also discuss several methodologies and programs developed to help improve the experience a novice programmer has when attempting to understand causes for errors and their results.
+We then discuss several methodologies and programs developed to help improve the experience a novice programmer has when attempting to understand causes for errors and their results.
 
 % The current paper format *only* allows inline comments using the todo
 % macro. That's kind of a bummer, and it would be neat if someone figured
@@ -90,7 +90,7 @@ Lastly, we will explore Denny et al. syntax error enhancement tool ~\cite{Denny:
 \section{Background}\label{sec:background}
 In order to discuss the analyses of error messages, we need to understand several concepts related to error types and usability.
 These concepts include compiler errors, syntax errors, runtime errors, usability studies, and Human Computer Interaction.
-We will also be discussing the programming languages and tools used the analysis of the error messages.
+We will then be discussing the programming languages and tools used the analysis of the error messages.
 They include Racket, C++, and Java programming languages and an overview of Integrated Development Environment (IDE) and DrRacket. 
 
 
@@ -111,10 +111,10 @@ Many of the studies performed on error messages analyzed in this paper are using
 In this paper, we discuss the general usability of error message design, but in order to do so, we will need to define compiler and runtime errors.
 A compiler is a program that processes source code written in a programming language into a machine language that a computer's processor reads so that instructions can be executed.
 A compilation error refers to a state when a compiler fails to compile a piece of  program source code.
-A program will not run if there is a compiler error because the compiler won't be able to create executable code to run if there are errors the compiler finds. 
-We also examine syntax errors, which is a type of compiler error that occurs when the code does not conform to the syntactical order expected by the parser.
-Often, these errors occur from variables that aren't defined or missing/extra punctuation.
-The parser, is a program (usually part of a compiler) that receives input as program instructions and builds it into a structural representation of the input while also checking for correct syntax of the input.
+A program will not run if there is a compiler error because the compiler will not be able to create executable code to run if there are errors the compiler finds. 
+Then, we examine syntax errors, which is a type of compiler error that occurs when the code does not conform to the syntactical order expected by the parser.
+Often, these errors occur from variables that are not defined or missing/extra punctuation.
+The parser, is a program (usually part of a compiler) that receives input as program instructions and builds it into a structural representation of the input while checking for correct syntax of the input.
 As Kummerfield and Kay note ~\cite{Kummerfeld:2003:NBF:858403.858416}, ``The usability of compiler errors are important because syntax error correction is the first step in the debugging process. It is not possible to continue program development until the code compiles. This means it is a crucial part of the error correction process.''
 Below is an example of a compiler error. Here, the programmer is defining \texttt{seven} to be \texttt{2+5}, but forgot to close the parenthesis. The compiler caught the syntax error, so the program did not execute.
 
@@ -150,13 +150,12 @@ We discuss these differences in subsection \ref{subsec:languages}.
 
 In order to discuss the research and studies done on error messages, we need to define the languages and programs used.
 In subsection 3.1, we discuss a study performed by Marceau et al. that analyzes the error messages in the Racket programming language and DrRacket integrated development environment.
-Racket is a member of the Lisp family of programming languages, specifically designed for students new to programming.
+Racket is a member of the Lisp family of programming languages and is designed for students new to programming.
 Racket is a functional language, which means it uses a programming style of building elements of programs while retaining immutable data structures 
 and without directly manipulating memory or changing state.
-Functional languages generally work well in teaching programming concepts to students since functional approaches emphasize core computer science concepts such as recursion. 
-Racket is also a dynamically typed language, which means type checking is performed at runtime rather than compile-time.
-
-\todo[inline, color=orange]{expand upon dynamically typed}
+Functional languages generally work well in teaching programming concepts to students since functional approaches emphasize core computer science concepts such as recursion.
+Racket is a dynamically typed language, which means type checking is performed at runtime rather than compile time and thus it is possible to bind a name to objects of different types during the execution of a program since every variable name is bound only to an object.
+Since the interpreter of a dynamically typed language deduces type and type conversions, a programmer does not have to worry as much about type declaration.
 
 An integrated development environment, or IDE, is an application that has packaged several other programs typically consisting of a text editor, compiler, and other programs used to debug code.
 DrRacket is an IDE meant for writing programs in Racket commonly geared toward introductory students.
@@ -166,13 +165,22 @@ In subsection 3.2, we discuss an analysis on compiler errors in C++ and in subse
 C++ and Java are widely used programming languages not designed for introductory programming, but are more designed toward system programming..
 However, C++ and Java are occasionally taught in introductory computer science classes.
 C++ and Java are both imperative languages, which is a programming style that, as opposed to functional programming, uses a sequence of statements to build a program using memory manipulation and changing the state of objects in a program.
-These languages also both fall in the style of Object-oriented programming, or OOP, which is a method of programming based on class hierarchy and is based around creating objects, which are data structures that contain a set of routines called methods. 
-Java and C++ are also statically typed languages, which means type checking is done at compile-time rather than runtime. 
-This means that the errors a programmer will see when using a statically typed programming language can be compile-time, where as in a dynamically typed language, the error may be found in runtime or not at all. 
+These languages both fall in the style of Object-oriented programming, or OOP, which is a method of programming based on class hierarchy and is based around creating objects, which are data structures that contain a set of routines called methods. 
+Java and C++ are statically typed languages, which means type checking is done at compile-time rather than runtime. 
+This means that when programming in statically typed languages, a programmer must pay attention to type assignment, but provides benefits such as earlier detection of programming mistakes.
 
-\todo[inline, color=red]{Discuss dynamically and statically typed more}
+Since Java and C++ are statically typed languages, a programmer can receive type errors during compile time.
+However, the same error will not occur in a dynamically typed language since type checking is done during runtime.
+Consider the following example:
 
-\todo[inline, color=orange]{Rephrase paragraphs, explain Racket more}
+\begin{verbatim}
+personName = "Francis"
+personName = 7
+\end{verbatim}
+
+This sequence of statements is illegal in a statically typed language since we are binding a string to \texttt{personName}, then an integer to\texttt{personName}.
+This statement would then throw an error during compile time.
+This is a legal statement in a dynamically typed language, however, since the interpreter deals with types during the runtime phase. 
 
 
 \section{Analyses}\label{sec:analyses}
@@ -204,7 +212,7 @@ The message is contradicting itself as it does follow an open parenthesis, but t
 
 Marceau, Fisler, and Krishnamurthi grouped messages into nine most common error categories in their results from the study.
 Their rubric found the level of severity of the error messages.
-Through their data collection at the end of the study, they also found the level of occurrence of each error type from each lab and which error messages were poorly responded to, indicated as \textit{\%error} and \textit{\%bad}, respectively.
+Through their data collection at the end of the study, they found the level of occurrence of each error type from each lab and which error messages were poorly responded to, indicated as \textit{\%error} and \textit{\%bad}, respectively.
 \textit{\#bad} shows the level of likelihood of recurrence of the respective error message.
 The values of interest are the values enclosed in a box, which are the higher level \textit{\#bad} values, as seen in figure \ref{fig:drracketstudy}. 
 
@@ -267,7 +275,7 @@ The author of the study noted that this type of error message should ``convey a 
 
 Traver found from the study, that there is an apparent lack of thought put into the usability of compiler error messages and that many students, especially those new to programming, will have a hard time understanding these errors.
 There was no quantitative data gathered on these error messages, but rather just a general observation of how students struggled working with the compiler error messages.
-Traver also noted that ``better [error messages] are possible'' and was able to provide alternative error messages for each of the ones analyzed ~\cite{Traver:2010}.
+Traver noted that ``better [error messages] are possible'' and was able to provide alternative error messages for each of the ones analyzed ~\cite{Traver:2010}.
 So, better error message design is possible, such that more efforts and time are put into compiler error message research. 
 
 \section{Methodologies}\label{sec:methodologies}
