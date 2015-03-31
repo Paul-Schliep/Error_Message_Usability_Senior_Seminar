@@ -283,7 +283,7 @@ So, better error message design is possible, such that more efforts and time are
 
 \section{Methodologies}\label{sec:methodologies}
 In this section, we will be discussing three methodologies and tools meant to attempt to improve the usability of error messages or suggest improvements for error message design based on the analyses discussed in section 3.
-The first methodology we discuss is a set of recommendations for improving the usability of error messages.
+The first methodology we discuss is a set of recommendations for improving the usability of error messages in IDEs, specifically in DrRacket.
 The second approach discusses improving compiler error messages through a set of principles meant to increase usability of the messages.
 For the third approach, we will discuss an attempt on enhancing syntax error messages in Java and the how well these syntax error messages improve over the original. 
 
@@ -326,24 +326,80 @@ The last three recommendations are design suggestions for introductory courses t
 These recommendations have not yet been implemented, but the authors hope to test them in the future~\cite{Marceau:2011:MYL:2048237.2048241}. 
 
 
-\subsection{Principles of compiler error design}\label{subsec:compiler error design}
-This will use my source, On Compiler Error Messages: What They Say and What They Mean
-\todo[inline, color=red]{TODO}
+%\subsection{Principles of compiler error design}\label{subsec:compiler error design}
+%\todo[inline, color=red]{TODO}
 
 \subsection{Syntax error message enhancement and results}\label{subsec:syntax enhancement}
-This will use my source, Enhancing Syntax Error Messages Appears Ineffectual
-\todo[inline, color=red]{TODO}
+
+Language syntax is often one of the first difficulties a student experiences when learning programming.~\cite{Denny:2011:USB:1999747.1999807}
+Because of this, introductory students may see many syntax errors while learning the syntax of a language.
+Denny et al. found that `` syntax errors can be a significant barrier to student success'' and thus propose to improve the existing error messages that deal with syntactical issues in a Java-based development environment for introductory programmers~\cite{Denny:2014:ESE:2591708.2591748}.
+
+Denny et al. decided to implement the enhanced error message system through CodeWrite, a web-based tool for students to complete various Java exercises.
+The code is entered directly in the browser and the students must write the body of a method, the header of the method is always provided.
+In order to create the enhanced feedback, the authors began by examining student submissions in CodeWrite and found the errors that had ambiguous compiler error messages. 
+They achieved this by performing an analysis of the code and use regular expressions to match commonly occurring patterns of code that caused errors and  extracting the line containing the error.
+They then categorized the error messages according to error type by building a program called a recognizer that would parse source code and raw compiler error messages.
+Once the original error is extracted, they then highlight the line and insert their enhanced error message.
+The enhanced error messages contain the line number of the offending line of code and a detailed explanation of the error.
+They also show an example of incorrect code and correct code of the corresponding syntax error with an explanation.
+Figure 4 shows an example of an enhanced error message from the following code:~\cite{Denny:2014:ESE:2591708.2591748}
+
+\begin{verbatim}
+if (score < 0) || (score > 100)
+Syntax error on token "||", if expected
+\end{verbatim}
+
+This statement is syntactically incorrect because the \texttt{if} statement is missing surrounding parenthesis. A syntactically correct statement would look like this:
+
+\begin{verbatim}
+if ((score < 0) || score > 100))
+\end{verbatim}
+
+\begin{figure*}
+  \centering
+  \includegraphics[keepaspectratio, width=\textwidth]{ESE_example.png}
+  \caption{Example of an enhanced syntax error}
+  \label{fig:drracketstudy}
+\end{figure*}
+
+The authors were interested in helping students improve their debugging skills, and were particularily interested in those who consistently submitted non-compiling code~\cite{Denny:2014:ESE:2591708.2591748}.
+After creating these enhanced error messages, the authors wanted to examine whether they had an impact on:
+\begin{itemize}
+	\item The number of non-compiling submissions made while attempting an exercise
+	\item The total number of non-compiler submissions
+	\item The number of attempts needed to resolve most common kinds of errors
+\end{itemize}
+
+Denny et al had students in a summer course randomly put in a control group that received the original error message or the intervention that received their new error messages and submit their code in CodeWrite where the authors could be able to compare the submissions of the same exercise of each group.
+Unfortunately, after testing whether their enhanced error messages had an impact on the above items, they found that their new feedback had no significant differences between the groups.
+
+Denny et al found numerous possibilities for why their enhanced feedback system was not effective on helping introductory students improve their debugging skills.
+They believed that the errors could have been simple enough to solve without needing to look at the messages.
+Another possibility was that students did not put more attention into the additional information of the messages.
+The authors hope to apply additional research into their enhanced errors to further find out why they were not any more helpful than the original messages\cite{Denny:2014:ESE:2591708.2591748}.
 
 
 \section{Conclusion}\label{sec:concl}
-Discussion of the direction usability of error messages will be taken and how the methodologies will be applied for future work.
 
-\todo[inline, color=red]{TODO}
+In this paper, we discussed compiler and runtime errors as well as dynamic and statically typed languages and how that affects error message handling.
+We used that information to discuss studies done on error messages in DrRacket and C++ compiler error messages and how well introductory students can use them for debugging.
+The research from DrRacket analysis concluded that students have difficulties with understanding error messages on unfamiliar concepts, but some errors in DrRacket incorrectly report the problem to the students and thus there is room for improvement.
+The analysis on error messages from the compiler deduced that these messages are difficult to understand from an HCI perspective.
+These are just two studies I analyzed in this paper, there are several others I looked over that discuss the quality of error messages for introductory students.
 
+There is research being done on attempting to improve or suggest the improvement for the usability of error messages.
+We discussed a set of recommendations on designing error messages which is geared toward assisting introductory students with debugging.
+We also discussed a system of enhanced error messages for syntactical issues and that it was ineffective at helping students debug more than the original error messages.
 
-\section{Acknowledgments}\label{sec:ackn}
+\section{Future work}\label{sec:ftrwrk}
 
-\todo[inline, color=red]{TODO}
+There is currently little research done on the usability of error messages.
+However, with the larger interest in the field of computer science and the growth in HCI studies, error message research, specifically for introductory programmers, has grown.
+Marceau et al created a series of recommendations that they plan on implementing in the future, which, based on their research, shows promise toward helping students improve their debugging skills ~\cite{Marceau:2011:MYL:2048237.2048241}.
+Also, while Denny et al enhanced syntax error messages was ineffective, they hope to figure out why and improve upon them in the future.
+While it is crucial to retain an error message's educational standpoint, it is also important to ease new students into learning a programming language.
+So, making sure the messages are user-friendly, such as familiar vocabulary or showing hints, is imperative to giving useful feedback for introductory students.
 
 
 % The following two commands are all you need in the
@@ -363,6 +419,7 @@ Discussion of the direction usability of error messages will be taken and how th
 %~\cite{Marceau:2011:MYL:2048237.2048241}
 %~\cite{Murphy:2008:BTD:1352135.1352193}
 %~\cite{Traver:2010}
+%~\cite{Denny:2011:USB:1999747.1999807}
 % You must have a proper ".bib" file
 %  and remember to run:
 % latex bibtex latex latex
