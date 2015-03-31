@@ -50,10 +50,10 @@ Paul A. Schliep\\
 Error messages are an important tool for programmers to help find and fix errors in their code.
 When an error message is unhelpful it can be difficult to find and fix the mistakes.
 Error messages are especially critical for introductory programmers in understanding problems with their code.
-Not all error messages are beneficial for helping novice programmers.
-This paper discusses how well error messages can help introductory students resolve mistakes in their programs and what aspects make an error message more user-friendly for introductory programmers.
-After that, we discuss the analyses of syntax, compiler, and exception errors and their results.
-We then discuss several methodologies and programs developed to help improve the experience a novice programmer has when attempting to understand causes for errors and their results.
+Not all error messages are beneficial for helping novice programmers, however.
+This paper discusses the general usability of error messages for introductory programmers and the importance these messages have on learning programming.
+After that, we discuss the analyses of DrRacket and C++ compiler error messages.
+We then discuss a set of recommendations on improving error messages in development environments and a error enhancement program meant to help improve the experience a novice programmer with error messages, and their effectiveness.
 
 % The current paper format *only* allows inline comments using the todo
 % macro. That's kind of a bummer, and it would be neat if someone figured
@@ -66,19 +66,20 @@ We then discuss several methodologies and programs developed to help improve the
 
 \section{Introduction}\label{sec:intro}
 One of the most important foundations of computer programming is the communication between the system and the user, specifically in the error messages produced by the system.
-These error messages are especially important for introductory-level computer science students to help them resolve issues in their program because the error messages are the primary source for understanding what is wrong and according to Marceau et al., ``[students] lack the experience to decipher complicated or poorly-constructed feedback'' ~\cite{Marceau:2011:MEE:1953163.1953308}.
+These error messages are especially important for introductory-level computer science students to help them resolve issues in their program because the error messages are the primary source for understanding what is wrong.
+According to Marceau et al, ``[students] lack the experience to decipher complicated or poorly-constructed feedback'' ~\cite{Marceau:2011:MEE:1953163.1953308}.
 The first rule of good message design is to be sure that the error does not add confusion ~\cite{Isa:1983:MOE:800045.801583}.
-Difficulties in understanding error messages often leads to frustration because the error message was either too complicated to understand or led them down the wrong path~\cite{Marceau:2011:MYL:2048237.2048241}, which can sometimes introduce new errors ~\cite{Denny:2014:ESE:2591708.2591748}. 
+Difficulties in understanding error messages often lead to frustration because the error message was either too complicated to understand or led them down the wrong path~\cite{Marceau:2011:MYL:2048237.2048241}, which can sometimes introduce new errors ~\cite{Denny:2014:ESE:2591708.2591748}. 
 
 Several studies have been conducted on modern programming languages' error messages to study the effectiveness in helping novice programmers debug their program and help learn the concepts and programming languages.
-The results have shown that students struggle with compiler and syntax error messages ~\cite{Denny:2014:ESE:2591708.2591748} ~\cite{Traver:2010} (which we will discuss in detail in Section 2) and the general vocabulary of the error messages along with IDE-specific features such as source highlighting can be bothersome for introductory computer science students ~\cite{Marceau:2011:MYL:2048237.2048241}. 
+The results have shown that students struggle with compiler and syntax error messages ~\cite{Denny:2014:ESE:2591708.2591748,Traver:2010} (which we will discuss in detail in Section 3) and the general vocabulary of the error messages along with IDE-specific features such as source highlighting can be bothersome for introductory computer science students ~\cite{Marceau:2011:MYL:2048237.2048241}. 
 
 Several tools and heuristics are being developed to help address issues in error message usability and its development.
 The goals of these methodologies are to help introductory programmers learn the language and concepts easier.
 The goal of this paper is to discuss the analyses of error message design and its usability for introductory students in a class setting (meaning students' interactions with programming in a lab setting and at home), and how these developed methodologies help improve the user experience with error messages. 
 
 This paper is divided into five sections.
-In Section 2 we discuss usability studies, define compiler, syntax, and exception error messages, and discuss imperative and functional programming.
+In Section 2 we discuss usability studies, define compiler, syntax, and runtime error messages, and discuss imperative and functional programming.
 In Section 3 we will focus on  analyses of the usability of exception messages and compiler messages for introductory students and how those analyses were performed.
 In Section 4 we discuss the results of those analyses.
 In Section 5 we introduce three methodologies developed to help improve the error message usability.
@@ -90,8 +91,9 @@ Lastly, we will explore Denny et al. syntax error enhancement tool ~\cite{Denny:
 \section{Background}\label{sec:background}
 In order to discuss the analyses of error messages, we need to understand several concepts related to error types and usability.
 These concepts include compiler errors, syntax errors, runtime errors, usability studies, and Human Computer Interaction.
-We will then be discussing the programming languages and tools used the analysis of the error messages.
-They include Racket, C++, and Java programming languages and an overview of Integrated Development Environment (IDE) and DrRacket. 
+We will also cover dynamically and statically typed languages and their differences.
+We will then be discussing the programming languages and tools used in the analysis of the error messages.
+They include Racket, C++, and Java programming languages and an overview of Integrated Development Environments (IDEs), and DrRacket in particular. 
 
 
 \subsection{Human-computer interaction and methods of usability analysis}\label{subsec:hci}
@@ -101,15 +103,16 @@ As Traver notes, ``HCI is a discipline that aims to provide user interfaces that
 Much of the research presented in this paper is from an HCI point of view, rather than a more technical approach.
 Thus, the areas we are looking at in error message design is the language used in the message, accuracy and precision of the messages, as well as interface elements such as text highlighting.
 
-In order to analyze these messages in an HCI perspective and attain qualitative and quantitative information about error message usability, a usability test or case study may be performed.
+In order to analyze these messages from an HCI perspective and attain qualitative and quantitative information about their usability, a usability test or case study may be performed.
 A usability test is a technique often used in HCI studies to evaluate a program or product by testing it on users.
-A case study is a research method that closely studies a group of participants, in the case of this paper, introductory students in a class room, and collects data about participants by observations and interviews.
+A case study is a research method that closely studies a group of participants, in the case of this paper, introductory students in a classroom, and collects data about participants by observations and interviews.
 Many of the studies performed on error messages analyzed in this paper are using a case study and usability test design. 
 
 \subsection{Compiler and Runtime errors}\label{subsec:error types}
 
 In this paper, we discuss the general usability of error message design, but in order to do so, we will need to define compiler and runtime errors.
-A compiler is a program that processes source code written in a programming language into a machine language that a computer's processor reads so that instructions can be executed.
+Note that when defining these error types, I will be talking about compiled, statically typed languages, which we define at the end of this subsection.
+A compiler is a program that converts source code written in a programming language into a language that a computer's processor can read so that instructions can be executed.
 A compilation error refers to a state when a compiler fails to compile a piece of  program source code.
 A program will not run if there is a compiler error because the compiler will not be able to create executable code to run if there are errors the compiler finds. 
 Then, we examine syntax errors, which is a type of compiler error that occurs when the code does not conform to the syntactical order expected by the parser.
@@ -124,11 +127,11 @@ int seven = (2 + 5;
 error: ')' expected
 \end{verbatim}
 
-After a program has successfully compiled without any errors, the system will then move to the runtime or execution time phase where it will attempt to execute the program.
+After a program has successfully compiled without any errors, the system will move to the runtime or execution time phase where it will attempt to execute the program.
 A runtime error is when there is an error detected during this phase.
 Runtime errors often indicate problems in the program itself such as running out of memory and can be harder to find and debug.
 Below is an example of a runtime error in Java.
-Here, the user wanted to print out a part of the string, "Hello World" but had the wrong bounds in the substring command (which takes a substring of a string).
+Here, the user wanted to print out a part of the string, "Hello World" but had the wrong bounds in the substring command (which returns a substring of a string).
 The error is telling the programmer that the wrong bounds are given and are out of the range of the string "Hello World" where the programmer should have given the bounds of \texttt{(6,11)}.
 
 \begin{verbatim}
@@ -158,11 +161,13 @@ Racket is a dynamically typed language, which means type checking is performed a
 Since the interpreter of a dynamically typed language deduces type and type conversions, a programmer does not have to worry as much about type declaration.
 
 An integrated development environment, or IDE, is an application that has packaged several other programs typically consisting of a text editor, compiler, and other programs used to debug code.
+An IDE is important for introductory programming classes because they offer useful error reporting not seen in the language and can help a student debug their programs more easily.
+For example, DrRacket offers highlighting offending line of code when the program fails and custom error messages geared specifically toward students.
 DrRacket is an IDE meant for writing programs in Racket commonly geared toward introductory students.
-DrRacket offers useful tools for introductory programmers in debugging such as highlighting the offending line when an error occurs and it also offers levels for students to program at called Teachpacks.
+DrRacket also offers levels for students to program at called teachpacks, which can affect the error message a student receives such as different vocabulary.
 
 In subsection 3.2, we discuss an analysis on compiler errors in C++ and in subsection 4.3, we discuss a system meant to enhance syntax error messages in the Java programming language.
-C++ and Java are widely used programming languages not designed for introductory programming, but are more designed toward system programming..
+C++ and Java are widely used programming languages not typically designed for introductory programming.
 However, C++ and Java are occasionally taught in introductory computer science classes.
 C++ and Java are both imperative languages, which is a programming style that, as opposed to functional programming, uses a sequence of statements to build a program using memory manipulation and changing the state of objects in a program.
 These languages both fall in the style of Object-oriented programming, or OOP, which is a method of programming based on class hierarchy and is based around creating objects, which are data structures that contain a set of routines called methods. 
@@ -180,7 +185,8 @@ personName = 7
 
 This sequence of statements is illegal in a statically typed language since we are binding a string to \texttt{personName}, then an integer to \texttt{personName}.
 This statement would then throw an error during compile time.
-This is a legal statement in a dynamically typed language, however, since the interpreter deals with types during the runtime phase. 
+This is a legal statement in a dynamically typed language, however, since the interpreter deals with types during the runtime phase.
+Note that this statement would not work in a purely function language since you can not change the value of a variable.
 
 
 \section{Analyses}\label{sec:analyses}
@@ -201,7 +207,9 @@ The rubric was meant to distinguish how an error message would fail or succeed.
 They determined that an error message is effective if a student can read it, understand it, and use that information to figure out how to resolve the issue.
 
 Figure \ref{fig:racketerrormessage} shows an example of an error message in Racket that Marceau et al. found as not effective for helping a student debug their program.
-The message is contradicting itself as \texttt{and} does follow an open parenthesis, but the parser thinks \texttt{and} is an independent entity from \texttt{cond}.
+The message is contradicting itself as \texttt{and} does follow an open parenthesis, but the parser thinks \texttt{and} does not have an open parenthesis before it and claims that there needs to be an open parenthesis .
+Unfortunately, to understand it, the programmer must realize that parser attributed the open parenthesis behind the \texttt{and} to the \texttt{cond}.
+The actual underlying issue is simply an extra closing parenthesis at the end of the definition, but trying to decipher that syntactical issue from the provided error message may be confusing to an introductory programmer.
 
 \begin{figure}[t!]
   \centering
@@ -210,13 +218,15 @@ The message is contradicting itself as \texttt{and} does follow an open parenthe
   \label{fig:racketerrormessage}
 \end{figure}
 
+\todo[inline, color=orange]{simplify error message from figure 1, turn into verbatim}
+
 Marceau, Fisler, and Krishnamurthi grouped messages into nine most common error categories in their results from the study.
-Through their data collection at the end of the study, they found the level of occurrence of each error type from each lab and which error messages were poorly responded to, indicated as \textit{\%error} and \textit{\%bad} in figure 2, respectively.
+Through their data collection at the end of the study, they found the percentage of occurrence of each error type from each lab as indicated by the \textit{\%error} and the percentage of students that responded poorly to the error message indicated as \textit{\%bad} as seen in figure 2.
 \textit{\#bad} shows the level of likelihood of recurrence of the respective error message.
 The values of interest are the \textit{\#bad} values enclosed in a box and the highest \textit{\%bad} values, as seen in figure \ref{fig:drracketstudy}). 
 
 The data the authors gathered helped identify errors students found challenging.
-The authors found that students have difficulties with certain errors at different points in the course, as expected since curricular aspects of the labs affect error patters.
+The authors found that students have difficulties with certain errors at different points in the course, as expected since curricular aspects of the labs affect error patterns.
 Many of the errors students struggled with were consistent with the course, such as difficulties with syntax errors in the first lab since students are still beginning to learn the language syntax.
 However, the data is not entirely a representation of students' conceptual difficulties with the course, as Marceau et al. found.
 The error messages a student receives, according to Marceau et al, ``is often not a direct indicator of the underlying error.''~\cite{Marceau:2011:MEE:1953163.1953308}
@@ -233,7 +243,7 @@ This suggests that there are some issues in the effectiveness of the error messa
 
 \subsection{Analysis of compiler messages in C++}\label{subsec:compiler analysis}
 
-\todo[inline, color=red]{heavily edit section}
+\todo[inline, color=red]{still need to heavily edit section}
 
 Compiler error messages are often cryptic and difficult to understand for many programmers, especially for students who are new to programming.
 Unfortunately, as Traver notes, ``most related disciplines, including compiler technology, have not paid much attention to this important aspect that affects programmers significantly, apparently because it is felt that programmers should adapt to compilers.'' ~\cite{Traver:2010}
@@ -377,7 +387,7 @@ Unfortunately, after testing whether their enhanced error messages had an impact
 Denny et al found numerous possibilities for why their enhanced feedback system was not effective on helping introductory students improve their debugging skills.
 They believed that the errors could have been simple enough to solve without needing to look at the messages.
 Another possibility was that students did not put more attention into the additional information of the messages.
-The authors hope to apply additional research into their enhanced errors to further find out why they were not any more helpful than the original messages\cite{Denny:2014:ESE:2591708.2591748}.
+The authors hope to apply additional research into their enhanced errors to further find out why they were not any more helpful than the original messages~\cite{Denny:2014:ESE:2591708.2591748}.
 
 
 \section{Conclusion}\label{sec:concl}
@@ -394,10 +404,9 @@ We also discussed a system of enhanced error messages for syntactical issues and
 
 \section{Future work}\label{sec:ftrwrk}
 
-There is currently little research done on the usability of error messages.
-However, with the larger interest in the field of computer science and the growth in HCI studies, error message research, specifically for introductory programmers, has grown.
-Marceau et al created a series of recommendations that they plan on implementing in the future, which, based on their research, shows promise toward helping students improve their debugging skills ~\cite{Marceau:2011:MYL:2048237.2048241}.
-Also, while Denny et al enhanced syntax error messages was ineffective, they hope to figure out why and improve upon them in the future.
+With the larger interest in the field of computer science and the growth in HCI studies, error message research, specifically for introductory programmers, has grown.
+Marceau et al created a series of recommendations that they have implemented in HTDP teachpacks for DrRacket, which requires further research to find the effectiveness this has for introductory students.~\cite{htdp-teachpacks}.
+Also, while Denny et al enhanced syntax error messages was ineffective, they hope to figure out why and improve upon them in the future through further research and interviews.
 While it is crucial to retain an error message's educational standpoint, it is also important to ease new students into learning a programming language.
 So, making sure the messages are user-friendly, such as familiar vocabulary or showing hints, is imperative to giving useful feedback for introductory students.
 
