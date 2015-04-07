@@ -47,13 +47,14 @@ Paul A. Schliep\\
 
 \maketitle
 \begin{abstract}
-Error messages are an important tool for programmers to help find and fix errors in their code.
-When an error message is unhelpful it can be difficult to find and fix the mistakes.
+Error messages are an important tool for programmers to help find and fix mistakes or issues in their code.
+When an error message is unhelpful, it can be difficult to find the issue and may impose learning difficulties.
 Error messages are especially critical for introductory programmers in understanding problems with their code.
 Not all error messages are beneficial for helping novice programmers, however.
 This paper discusses the general usability of error messages for introductory programmers and the importance these messages have on learning programming.
-After that, we discuss the analyses of DrRacket and C++ compiler error messages.
-We then discuss a set of recommendations on improving error messages in development environments and a error enhancement program meant to help improve the experience a novice programmer with error messages, and their effectiveness.
+After that, we discuss an analysis of error messages in the DrRacket development environment.
+Then we analyze error message usability of compilers and a study conducted on compiler errors in C++.
+We then discuss a set of recommendations on improving error messages in development environments and an error enhancement program meant to help improve the experience a novice programmer with error messages, and their effectiveness.
 
 % The current paper format *only* allows inline comments using the todo
 % macro. That's kind of a bummer, and it would be neat if someone figured
@@ -67,21 +68,20 @@ We then discuss a set of recommendations on improving error messages in developm
 \section{Introduction}\label{sec:intro}
 One of the most important foundations of computer programming is the communication between the system and the user, specifically in the error messages produced by the system.
 These error messages are especially important for introductory-level computer science students to help them resolve issues in their program because the error messages are the primary source for understanding what is wrong.
-According to Marceau et al, ``[students] lack the experience to decipher complicated or poorly-constructed feedback'' ~\cite{Marceau:2011:MEE:1953163.1953308}.
-The first rule of good message design is to be sure that the error does not add confusion ~\cite{Isa:1983:MOE:800045.801583}.
-Difficulties in understanding error messages often lead to frustration because the error message was either too complicated to understand or led them down the wrong path~\cite{Marceau:2011:MYL:2048237.2048241}, which can sometimes introduce new errors ~\cite{Denny:2014:ESE:2591708.2591748}. 
+According to Marceau et al, ``[students] lack the experience to decipher complicated or poorly-constructed feedback''~\cite{Marceau:2011:MEE:1953163.1953308}.
+The first rule of good message design is to be sure that the error does not add confusion~\cite{Isa:1983:MOE:800045.801583}.
+Difficulties in understanding error messages often lead to frustration because the error message was either too complicated to understand or led them down the wrong path~\cite{Marceau:2011:MYL:2048237.2048241}, which can sometimes introduce new errors~\cite{Denny:2014:ESE:2591708.2591748}.
 
-Several studies have been conducted on modern programming languages' error messages to study the effectiveness in helping novice programmers debug their program and help learn the concepts and programming languages.
-The results have shown that students struggle with compiler and syntax error messages ~\cite{Denny:2014:ESE:2591708.2591748,Traver:2010} (which we will discuss in detail in Section 3) and the general vocabulary of the error messages along with IDE-specific features such as source highlighting can be bothersome for introductory computer science students ~\cite{Marceau:2011:MYL:2048237.2048241}. 
+Various studies have been conducted on modern programming languages' error messages to study the effectiveness in helping novice programmers debug their program and help learn the concepts and programming languages.
+The results have shown that students struggle with various elements of error messages such as terminology source highlighting~\cite{Denny:2014:ESE:2591708.2591748,Traver:2010} (which we discuss in detail in Section 3).
+Several tools and heuristics are being developed to help address issues in error message usability.
+The goals of these methodologies are to help introductory programmers learn the language and concepts easier and more easily guide the programmers to a solution.
+The purpose of this paper is to discuss analyses of error message design and its usability for introductory students in a class setting (meaning students' interactions with programming in a lab setting and at home), and how these developed methodologies help improve the user experience with error messages. 
 
-Several tools and heuristics are being developed to help address issues in error message usability and its development.
-The goals of these methodologies are to help introductory programmers learn the language and concepts easier.
-The goal of this paper is to discuss the analyses of error message design and its usability for introductory students in a class setting (meaning students' interactions with programming in a lab setting and at home), and how these developed methodologies help improve the user experience with error messages. 
-
-This paper is divided into five sections.
-In Section 2 we discuss usability studies, define compiler, syntax, and runtime error messages, cover static and dynamic languages, and discuss imperative and functional programming.
-In Section 3 we will focus on  analyses of the usability of error messages in development environments and compiler messages for introductory students and how those analyses were performed.
-In Section 4 we examine Marceau et al's recommendations for error message design ~\cite{Marceau:2011:MYL:2048237.2048241} and then we explore Denny et al syntax error enhancement tool ~\cite{Denny:2014:ESE:2591708.2591748}.
+This paper is divided into four sections.
+In Section 2 we discuss usability studies, and then define compiler, syntax, and runtime error messages. After that, we introduce static and dynamic languages, and discuss imperative and functional programming. We then define interactive development environments and proceed to introduce the tools covered in the analyses used in Section 3.
+In Section 3 we focus on analyses of the usability of error messages in development environments and compiler messages for introductory students and how those analyses were performed.
+In Section 4 we examine Marceau et al's recommendations for error message design~\cite{Marceau:2011:MYL:2048237.2048241} and then we explore Denny et al syntax error enhancement tool~\cite{Denny:2014:ESE:2591708.2591748}.
 
 
 \section{Background}\label{sec:background}
