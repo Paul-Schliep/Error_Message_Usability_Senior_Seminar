@@ -73,15 +73,15 @@ The first rule of good message design is to be sure that the error does not add 
 Difficulties in understanding error messages often lead to frustration because the error message was either too complicated to understand or led them down the wrong path~\cite{Marceau:2011:MYL:2048237.2048241}, which can sometimes introduce new errors~\cite{Denny:2014:ESE:2591708.2591748}.
 
 Various studies have been conducted on modern programming languages' error messages to study the effectiveness in helping novice programmers debug their program and help learn the concepts and programming languages.
-The results have shown that students struggle with various elements of error messages such as terminology source highlighting~\cite{Denny:2014:ESE:2591708.2591748,Traver:2010} (which we discuss in detail in Section 3).
+The results have shown that students struggle with various elements of error messages such as terminology source highlighting~\cite{Denny:2014:ESE:2591708.2591748,Traver:2010} (which we discuss in detail in Section \ref{sec:analyses}).
 Several tools and heuristics are being developed to help address issues in error message usability.
 The goals of these methodologies are to help introductory programmers learn the language and concepts easier and more easily guide the programmers to a solution.
 The purpose of this paper is to discuss analyses of error message design and its usability for introductory students in a class setting (meaning students' interactions with programming in a lab setting and at home), and how these developed methodologies help improve the user experience with error messages. 
 
 This paper is divided into four sections.
-In Section 2 we discuss usability studies, and then define compiler, syntax, and runtime error messages. After that, we introduce static and dynamic languages, and discuss imperative and functional programming. We then define interactive development environments and proceed to introduce the tools covered in the analyses used in Section 3.
-In Section 3 we focus on analyses of the usability of error messages in development environments and compiler messages for introductory students and how those analyses were performed.
-In Section 4 we examine Marceau et al.'s recommendations for error message design~\cite{Marceau:2011:MYL:2048237.2048241} and then we explore Denny et al.'s syntax error enhancement tool~\cite{Denny:2014:ESE:2591708.2591748}.
+In Section \ref{sec:background} we discuss usability studies, and then define compiler, syntax, and runtime error messages. After that, we introduce static and dynamic languages, and discuss imperative and functional programming. We then define interactive development environments and proceed to introduce the tools covered in the analyses used in Section \ref{sec:analyses}.
+In Section \ref{sec:analyses} we focus on analyses of the usability of error messages in development environments and compiler messages for introductory students and how those analyses were performed.
+In Section \ref{sec:methodologies} we examine Marceau et al.'s recommendations for error message design~\cite{Marceau:2011:MYL:2048237.2048241} and then we explore Denny et al.'s syntax error enhancement tool~\cite{Denny:2014:ESE:2591708.2591748}.
 
 
 \section{Background}\label{sec:background}
@@ -105,7 +105,8 @@ Many of the studies performed on error messages analyzed in this paper are using
 
 \subsection{Compiler and Runtime errors}\label{subsec:error types}
 
-\begin{figure*}
+%I put this here to get it to display on the right page, oh LaTeX!
+\begin{figure*}\label{fig:drracketdata}
   \centering
   \includegraphics[keepaspectratio, width= 1.0 \textwidth]{MEE-Data.pdf}
   \caption{Results from DrRacket study}
@@ -145,7 +146,7 @@ String index out of range: 12
 
 \subsection{Overview of programming languages and tools analyzed}\label{subsec:languages}
 
-In section 3, we discuss a study performed by Marceau et al. that analyzes the error messages in the DrRacket integrated development environment~\cite{Marceau:2011:MEE:1953163.1953308}.
+In section \ref{sec:analyses}, we discuss a study performed by Marceau et al. that analyzes the error messages in the DrRacket integrated development environment~\cite{Marceau:2011:MEE:1953163.1953308}.
 An integrated development environment, or IDE, is an application that has packaged several other programs typically consisting of a text editor, compiler, and other programs used to debug code.
 An IDE is important for introductory programming classes because they offer useful error reporting not seen in the language and can help a student debug their programs more easily.
 For example, DrRacket offers highlighting offending line of code when the program fails and custom error messages geared specifically toward students.
@@ -194,7 +195,7 @@ The second analysis will discuss the effectiveness of compiler error messages in
 Marceau, Fisler, and Krishnamurthi helped design DrRacket's error messages so that they can be more helpful to beginner programmers.
 However, Marceau et al. still noticed students struggling with debugging and understanding the error messages, so the authors were interested in seeing how their students responded to these error messages and to identify specific error messages that performed poorly~\cite{Marceau:2011:MYL:2048237.2048241}.
 In the spring of 2010, Marceau, Fisler, and Krishnamurthi ran a case study on error messages in DrRacket.
-The study involved configuring DrRacket to save a copy of each program a student tried to run as well as the error message through six 50 minute lab sessions ~\cite{Marceau:2011:MEE:1953163.1953308}.
+The study involved configuring DrRacket to save a copy of each program a student tried to run as well as the error message through six 50 minute lab sessions~\cite{Marceau:2011:MEE:1953163.1953308}.
 The authors were interested in which error messages are effective and how well DrRacket's text highlighting can help a student.  
 
 In order to measure effectiveness, the authors developed a rubric which determined whether the student made a reasonable edit in response to the error message~\cite{Marceau:2011:MEE:1953163.1953308}.
@@ -206,8 +207,8 @@ The following Racket code, modified from~\cite{Marceau:2011:MEE:1953163.1953308}
 \begin{verbatim}
 (define (example name word1 word2)
    (cond
-  	   (and (cond [(string=? name word1)] "Name Located"]
-                 [(string=? name word2)] "Name Located"])
+  	   (and (cond [(string=? name word1) "Name Located"]
+                 [(string=? name word2) "Name Located"])
        "Mark")
 ))
 
@@ -228,7 +229,7 @@ The actual underlying issue is simply an extra closing parenthesis at the end of
 
 %\todo[inline, color=orange]{simplify error message from figure 1, turn into verbatim}
 
-Figure 1 shows the results of Marceau et al. study. 
+Figure \ref{fig:drracketdata} shows the results (modified from~\cite{Marceau:2011:MEE:1953163.1953308}) of Marceau et al. study. 
 They grouped messages into nine most common error categories in their results from the study, as seen on the left side of the table.
 The top portion above the table shows the lab number.
 Through their data collection at the end of the study, they found the percentage of occurrence of each error type from each lab as indicated by the \textit{\%error} and the percentage of students that responded poorly to the error message indicated as \textit{\%bad}, as seen in the top boxes of the table.
@@ -240,19 +241,18 @@ The authors found that students have difficulties with certain errors at differe
 Many of the errors students struggled with were consistent with the course, such as difficulties with syntax errors in the first lab since students are still beginning to learn the language syntax.
 
 However, the data is not entirely a representation of students' conceptual difficulties with the course, as Marceau et al. found.
-The error messages a student receives, according to Marceau et al., ``is often not a direct indicator of the underlying error.''~\cite{Marceau:2011:MEE:1953163.1953308}
+The error messages a student receives, according to Marceau et al., ``is often not a direct indicator of the underlying error''~\cite{Marceau:2011:MEE:1953163.1953308}.
 For example, in lab number six, numerous \texttt{unbound-id} errors  or unbound identifiers occurred, which is when the compiler finds a variable that was not defined.
 However, the authors found that the actual problem students had was improperly using field reference operators and the actual errors they should have received was not given.
 This suggests that there are some issues in the effectiveness of the error messages.
 
 \subsection{Analysis of compiler messages in C++}\label{subsec:compiler analysis}
 
-\todo[inline, color=red]{having a tough time summarizing paper}
-
 Compiler error messages are often cryptic and difficult to understand for many programmers, especially for students who are new to programming.
-Unfortunately, as Traver notes, ``most related disciplines, including compiler technology, have not paid much attention to this important aspect that affects programmers significantly, apparently because it is felt that programmers should adapt to compilers.'' ~\cite{Traver:2010}
+Unfortunately, as Traver notes, ``most related disciplines, including compiler technology, have not paid much attention to this important aspect that affects programmers significantly, apparently because it is felt that programmers should adapt to compilers''~\cite{Traver:2010}.
 Traver proposed to research compiler error message usability from a strictly HCI viewpoint.
 So, we will not cover technical implications of developing error messages for compilers, but rather the how usable they are for helping introductory programmers resolve issues with their program.
+
 In the first semester of 2002-2003, Traver conducted a case study on students' work with compiler error messages in C++ in an introductory computer science course.
 The motivation of this study is to gain insight on what errors students are struggling with in the course.
 Traver gathered data from the students' interactions with C++ throughout the semester and wrote up analyses of the error messages received in 5 separate parts.
@@ -288,20 +288,20 @@ Traver found that this error message might not be suitable for every programmer 
 The author of the study noted that this type of error message should ``convey a clear message that the programmer can quickly understand and that is useful for fixing the error'', but the error message given to the user would not accomplish this for students who are still new to programming~\cite{Traver:2010}.
 
 There was no quantitative data gathered on these error messages, but rather just an observation of how students struggled working with the compiler error messages and detailed analyses of the error messages.
-Traver found from this research (and previous research), that the usability of compiler errors is a well-known issue, and often do not properly tell the programmer the issue.
-However, the author hopes that approaches (such as the syntax error message enhancement we cover in section 4) be considered to address the issues in compiler error message design.
+Traver found from this research (and previous research) that the usability of compiler errors is a well-known issue and they do not always properly tell the programmer the issue.
+However, the author hopes that approaches (such as the syntax error message enhancement we cover in section \ref{sec:methodologies}) be considered to address the issues in compiler error message design.
 
 
 \section{Methodologies}\label{sec:methodologies}
-In this section, we will be discussing three methodologies and tools meant to attempt to improve the usability of error messages or suggest improvements for error message design based on the analyses discussed in section 3.
+In this section, we will be discussing three methodologies and tools proposed to improve the usability of error messages or suggest improvements for error message design based on the analyses discussed in section \ref{sec:analyses}.
 The first methodology we discuss is a set of recommendations for improving the usability of error messages in IDEs, specifically in DrRacket.
-The second approach discusses improving compiler error messages through a set of principles meant to increase usability of the messages.
-For the third approach, we will discuss an attempt on enhancing syntax error messages in Java and the how well these syntax error messages improve over the original. 
+The second approach discusses a set of principles meant to increase usability of compiler error messages.
+For the third approach, we will discuss an attempt on enhancing syntax error messages in Java and how well these syntax error messages improve over the original. 
 
 \subsection{Recommendations for error messages in IDEs}\label{subsec:error message rubric}
 After Marceau et al. analyzed their data from the case study (as detailed in section \ref{subsec:racket analysis}), they found that students struggled to respond to error messages.
 Through their research, they were able to develop a list of proposed methods of improving error messages, specifically for DrRacket, ``but  should apply just as well in any other programming language used for teaching, including those with
-graphical syntaxes.''~\cite{Marceau:2011:MYL:2048237.2048241}
+graphical syntaxes''~\cite{Marceau:2011:MYL:2048237.2048241}.
 They also wanted to maintain two integral principles in error message design for their proposals:
 
 \begin{itemize}
@@ -310,10 +310,10 @@ They also wanted to maintain two integral principles in error message design for
 \end{itemize}
 
 The first recommendation is simplifying vocabulary used in error messages.
-The authors found that while DrRacket is ``accurate and consistent in its use of technical vocabulary'', but ``some of its terms are overly precise relative to terms that students already know.~\cite{Marceau:2011:MYL:2048237.2048241}''
+The authors found that while DrRacket is ``accurate and consistent in its use of technical vocabulary'', but ``some of its terms are overly precise relative to terms that students already know''~\cite{Marceau:2011:MYL:2048237.2048241}.
 For example, the term \texttt{identifier} is used in DrRacket error messages. However, the term \texttt{variable} is a term students are more likely to be familiar with~\cite{Marceau:2011:MYL:2048237.2048241}.
 However, they also argue that non-simplified vocabulary is appropriate for an introductory computer science course.
-Rather, simplified vocabulary would be better suited at entry-level levels in DrRacket, and the higher levels later in the course would help students become familiar with the vocabulary.
+Rather, simplified vocabulary would be better suited at entry-level levels in DrRacket, and the higher levels later in the course may help students become more familiar with the vocabulary.
 
 Marceau et al. also wanted error messages to be explicit about inconsistencies, specifically with function or constructor usage.
 They found that DrRacket highlights the source expression where the variable or constructor is called, but not the definition.
@@ -322,19 +322,19 @@ While an IDE may not be able to identify whether a definition or its usage is th
 Inconsistencies can occur in many other facets of a language, such as syntax errors, but an IDE should not steer students down the wrong path~\cite{Marceau:2011:MYL:2048237.2048241}.
 
 The authors go on to propose error messages should highlight every reference and its corresponding code with a distinct color in order to help students match message terms to code fragments.
-They believe this should help resolve ambiguity about highlighting and ambiguous references (an example of an ambiguous reference is highlighted in blue in figure 2).
-Figure 2 shows an example of a color coded error message from ~\cite{Marceau:2011:MYL:2048237.2048241}.
+They believe this should help resolve ambiguity about highlighting and ambiguous references (an example of an ambiguous reference is highlighted in blue in figure \ref{fig:colorcodedmessage}).
+Figure \ref{fig:colorcodedmessage} shows an example of a color coded error message, modified from~\cite{Marceau:2011:MYL:2048237.2048241}.
 The red highlights the definition, the green highlights the clause, and the blue highlights the reference.
 
 \begin{figure}
   \centering
-  \includegraphics[keepaspectratio, width=0.5\textwidth]{DrRacketColorCodedMessage.png}
+  \includegraphics[keepaspectratio, width=0.50\textwidth]{ColorCodedMessage.pdf}
   \caption{Example of color coded message}
   \label{fig:colorcodedmessage}
 \end{figure}
 
-The last three recommendations are design suggestions for introductory courses that uses DrRacket to help students with error messages, so in the interest of space I will not be covering them.
-These recommendations have not yet been implemented, but the authors hope to test them in the future~\cite{Marceau:2011:MYL:2048237.2048241}. 
+The last three recommendations are design suggestions for introductory courses that uses DrRacket to help students with error messages, so in the interest of space, we will not be covering them.
+As of the writing of the paper, the authors had not implemented these suggestions~\cite{Marceau:2011:MYL:2048237.2048241}. 
 
 
 %\subsection{Principles of compiler error design}\label{subsec:compiler error design}
@@ -342,43 +342,41 @@ These recommendations have not yet been implemented, but the authors hope to tes
 
 \subsection{Syntax error message enhancement and results}\label{subsec:syntax enhancement}
 
-Language syntax is often one of the first difficulties a student experiences when learning programming.~\cite{Denny:2011:USB:1999747.1999807}
+Language syntax is often one of the first difficulties a student experiences when learning programming~\cite{Denny:2011:USB:1999747.1999807}.
 Because of this, introductory students may see many syntax errors while learning the syntax of a language.
-Denny et al. found that `` syntax errors can be a significant barrier to student success'' and thus propose to improve the existing error messages that deal with syntactical issues in a Java-based development environment for introductory programmers~\cite{Denny:2014:ESE:2591708.2591748}.
+Denny et al. found that ``syntax errors can be a significant barrier to student success'' and thus propose to improve the existing error messages that deal with syntactical issues in a Java-based development environment for introductory programmers~\cite{Denny:2014:ESE:2591708.2591748}.
 
 Denny et al. decided to implement the enhanced error message system through CodeWrite, a web-based tool for students to complete various Java exercises.
-The code is entered directly in the browser and the students must write the body of a method, the header of the method is always provided.
+The code is entered directly in the browser
+The students need to write only the body of a method, the header of the method is always provided.
 In order to create the enhanced feedback, the authors began by examining student submissions in CodeWrite and found the errors that had ambiguous compiler error messages. 
 They achieved this by performing an analysis of the code and use regular expressions to match commonly occurring patterns of code that caused errors and  extracting the line containing the error.
 They then categorized the error messages according to error type by building a program called a recognizer that would parse source code and raw compiler error messages.
 Once the original error is extracted, they then highlight the line and insert their enhanced error message.
 The enhanced error messages contain the line number of the offending line of code and a detailed explanation of the error.
 They also show an example of incorrect code and correct code of the corresponding syntax error with an explanation.
-Figure 3 shows an example of an enhanced error message from the following code:~\cite{Denny:2014:ESE:2591708.2591748}
+Figure \ref{fig:ese} shows an example of an enhanced error message, modified from~\cite{Denny:2014:ESE:2591708.2591748} for readability.
+This message was produced from the following erroneous code fragment:
 
 \begin{verbatim}
 if (score < 0) || (score > 100)
 Syntax error on token "||", if expected
 \end{verbatim}
 
-This statement is syntactically incorrect because the \texttt{if} statement is missing surrounding parenthesis. A syntactically correct statement would look like this:
-
-\begin{verbatim}
-if ((score < 0) || score > 100))
-\end{verbatim}
+This statement is syntactically incorrect because the \texttt{if} statement is missing surrounding parenthesis. The corrected statement is in the "Correct Code" block in figure \ref{fig:ese}.
 
 \begin{figure*}
   \centering
-  \includegraphics[keepaspectratio, width=\textwidth]{ESE_example.png}
+  \includegraphics[keepaspectratio, width=\textwidth]{EnhancedSyntaxError.pdf}
   \caption{Example of an enhanced syntax error}
-  \label{fig:drracketstudy}
+  \label{fig:ese}
 \end{figure*}
 
 The authors were interested in helping students improve their debugging skills, and were particularly interested in those who consistently submitted non-compiling code~\cite{Denny:2014:ESE:2591708.2591748}.
 After creating these enhanced error messages, the authors wanted to examine whether they had an impact on:
 \begin{itemize}
 	\item The number of non-compiling submissions made while attempting an exercise
-	\item The total number of non-compiler submissions
+	\item The total number of non-compiling submissions
 	\item The number of attempts needed to resolve most common kinds of errors
 \end{itemize}
 
@@ -407,12 +405,12 @@ We also discussed a system of enhanced error messages for syntactical issues, bu
 With the larger interest in the field of computer science and the growth in HCI studies, error message research, specifically for introductory programmers, has grown.
 Marceau et al. created a series of recommendations that they have implemented in HtDP libraries for DrRacket.
 HtDP, or How to Design Programs, is a library that offers the enhancements of error messages detailed in subsection \ref{subsec:error message rubric} and constructs the language features to help restrict the set of explanations for student errors.
-This library requires further research to find the effectiveness this has for introductory students.~\cite{htdp-teachpacks}.
+This library requires further research to find the effectiveness this has for introductory students~\cite{htdp-teachpacks}.
 
-Traver noted in his research on compiler errors that some approaches do exist attempt to make these messages better communicate between the programmer and computer the problem with the program, Denny et al.'s syntax error enhancement for example, but ``the problem is far from being properly solved.''~\cite{Traver:2010}  
+Traver noted in his research on compiler errors that some approaches have been made to attempt to make these messages better communicate the problem to the programmer, such as Denny et al.'s syntax error enhancement, but ``the problem is far from being properly solved''~\cite{Traver:2010}. 
 Traver hopes ``that state-of-the-art compilers will advance towards smart, very programmer-friendly compilers.''
 While it is crucial to retain an error message's educational standpoint, it is also important to ease new students into learning a programming language.
-So, making sure the messages are user-friendly, such as familiar vocabulary or showing hints, is imperative to giving useful feedback for introductory students.
+So, making sure the messages are user-friendly, such as familiar vocabulary or showing hints, is imperative to giving useful feedback for introductory students so they can more easily understand the programming language.
 
 
 % The following two commands are all you need in the
