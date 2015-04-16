@@ -105,11 +105,11 @@ In this paper, a p-value > 0.05 will be considered significant.
 \subsection{Compiler and Runtime errors}\label{subsec:error types}
 
 %I put this here to get it to display on the right page, oh LaTeX!
-\begin{figure*}\label{fig:drracketdata}
+\begin{figure*}
   \centering
   \includegraphics[keepaspectratio, width= 1.0 \textwidth]{MEE-Data.pdf}
   \caption{Results from DrRacket study}
-  \label{fig:drracketstudy}
+  \label{fig:drracketdata}
 \end{figure*}
 
 When writing code, a programmer may receive various error messages during different phases of the program, runtime and compile time.
@@ -204,20 +204,22 @@ They determined that an error message is effective if a student can read it, und
 The following Racket code, modified from~\cite{Marceau:2011:MEE:1953163.1953308}  shows an example of an error message in DrRacket that Marceau et al. found as not effective for helping a student debug their program.
 
 \begin{verbatim}
-(define (example name word1 word2)
-   (cond
-  	   (and (cond [(string=? name word1) "Name Located"]
-                 [(string=? name word2) "Name Located"])
-       "Mark")
-))
+1 (define (label-near? name bias word1 word2)
+2    (cond
+3      (and (cond [(string=? name word1) "Name Located"]
+4                 [(string=? bias word2) "Bias Located"])
+5           (cond [(string=? name word2) "Name Located"]
+6                 [(string=? bias word2) "Bias Located"])
+7      "Mark")
+8 ))
 
--> and: found a use of `and' that does not follow 
+-> and: found a use of 'and' that does not follow 
 an open parenthesis
 \end{verbatim}
 
-The message is contradicting the code as \texttt{and} does follow an open parenthesis, but the parser thinks \texttt{and} does not have an open parenthesis before it and claims that there needs to be an open parenthesis .
+The message is contradicting the code as \texttt{and} does follow an open parenthesis, but the parser thinks \texttt{and} does not have an open parenthesis before it and claims that there needs to be an open parenthesis.
 Unfortunately, to understand it, the programmer must realize that parser attributed the open parenthesis before the \texttt{and} to the \texttt{cond}.
-The actual underlying issue is simply an extra closing parenthesis at the end of the definition, but trying to decipher that syntactical issue from the provided error message may be confusing to an introductory programmer.
+The actual underlying issue is a misuse of \texttt{and} with the \texttt{cond} on line 2, but trying to decipher that issue from the provided error message may be confusing to an introductory programmer.
 
 %\begin{figure}[t!]
 %  \centering
@@ -231,9 +233,10 @@ The actual underlying issue is simply an extra closing parenthesis at the end of
 Figure \ref{fig:drracketdata} shows the results (modified from~\cite{Marceau:2011:MEE:1953163.1953308}) of Marceau et al. study. 
 They grouped messages into nine most common error categories in their results from the study, as seen on the left side of the table.
 The top portion above the table shows the lab number.
-Through their data collection at the end of the study, they found the percentage of occurrence of each error type from each lab as indicated by the \textit{\%error} and the percentage of students that responded poorly to the error message indicated as \textit{\%bad}, as seen in the top boxes of the table.
-\textit{\#bad} shows the level of likelihood of recurrence of the respective error message.
-The values of interest are the \textit{\#bad} values enclosed in a box and the highest \textit{\%bad} values, as seen in figure \ref{fig:drracketstudy}). 
+%Through their data collection at the end of the study, they found the percentage of occurrence of each error type from each lab as indicated by the \textit{\%error} and the percentage of students that responded poorly to the error message indicated as \textit{\%bad}, as seen in the top boxes of the table.
+%\textit{\#bad} shows an estimate of the number of errors in the category that each student responded poorly to.
+The results of their data analysis are seen in figure \ref{fig:drracketdata}.
+The values of interest are the \textit{\#bad} values enclosed in a box and the highest \textit{\%bad} values (as seen in figure \ref{fig:drracketdata}). 
 
 The data the authors gathered helped identify errors students found challenging.
 The authors found that students have difficulties with certain errors at different points in the course, as expected since curricular aspects of the labs affect error patterns.

@@ -73,32 +73,58 @@
 
 \section*{Introduction}
 
-\subsection*{Introduction to error messages}
+\subsection*{Overview of error messages}
+
+\begin{frame}[fragile]
+  \frametitle{Introduction to error messages}
+  \begin{itemize}
+  	\item In programming, an error is when the computer cannot understand an expression in the code
+  	\begin{itemize}
+  		\item these errors will return an error message
+  	\end{itemize}
+  	\item Here's an example of an error message:
+  	  \begin{verbatim}
+  print("Hello World";
+  ->java.3: error: unclosed string literal
+  	\end{verbatim}
+  \end{itemize}
+\end{frame}
 
 \begin{frame}
   \frametitle{Importance of error messages}
   \begin{itemize}
   	\item Error messages are important tool for beginner programmers
   	\begin{itemize}
-  		\item They are the main interaction between the system and the user
+  		\item one of the primary interactions between the system and the user
   	\end{itemize}
   	\item Unhelpful error messages impose learning difficulties, especially for new programmers
   	\item Error messages with poor usability can lead the user down the wrong path
   \end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
   \frametitle{Goals of an error message}
   \begin{itemize}
-  	\item Starting...
+  	\item An error message should:
+  	\begin{itemize}
+  		\item not add confusion
+  		\item be easy to understand
+  		\item help a student locate the issue
+  	\end{itemize}
+  	\item Example:
+  	\begin{verbatim}
+  	Developing...
+  	\end{verbatim}
   \end{itemize}
 \end{frame}
 
 \begin{frame}
-  \frametitle{Some title}
-  \begin{itemize}
-  	\item Starting...
-  \end{itemize}
+ \frametitle{Analyzing error messages}
+ \begin{itemize}
+ 	\item Human-computer interaction: study on interfaces between user and programs
+ 	\item Much of the research presented from an HCI perspective
+ 	\item We will discuss error messages in terms of usability
+ \end{itemize}
 \end{frame}
 
 \subsection*{Outline}
@@ -110,73 +136,165 @@
 
 \section[Background]{Background}
 
-\subsection{Type errors}
+\subsection{Compiler and runtime errors}
 
-\begin{frame}
-  \frametitle{Statically typed}
-	\begin{itemize}
-		\item Something goes here...
-	\end{itemize}
-\end{frame}
-
-\begin{frame}
-  \frametitle{Dynamically typed}
-	\begin{itemize}
-		\item Something goes here...
-	\end{itemize}
-\end{frame}
-
-\subsection{Error Types}
-
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Compiler errors}
 		\begin{itemize}
-			\item Something goes here...
+			\item When a compiler fails to compile a program, a user will receive a compiler error message
+			\item For newer programmers, these typically occur from syntax errors
+			\item Example (in Java):
+			\begin{verbatim}
+		int seven = (2 + 5;
+		error: ')' expected
+			\end{verbatim}
 		\end{itemize}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Runtime errors}
 		\begin{itemize}
-			\item Something goes here...
-		\end{itemize}
+			\item A runtime error occurs after a program has compiled
+			\item Usually indication of logical errors in the code
+			\item Cannot be predicted, dependent on the values
+			\item Example:
+			\begin{verbatim}
+			String string = "Hello World";
+System.out.print(string.substring(6,12));
 
+java.lang.StringIndexOutOfBoundsException:
+String index out of range: 12
+			\end{verbatim}
+		\end{itemize}
+\end{frame}
+
+\subsection{Dynamic and statically typed}
+
+\begin{frame}[fragile]
+  \frametitle{Statically typed}
+	\begin{itemize}
+		\item All variables and/or objects assigned types
+		\item Type checking done at compile time
+		\begin{itemize}
+			\item this means different error messages
+		\end{itemize}
+		\item Languages like Java or C++ are statically typed
+		\item The following example would give an error at compile time in statically typed:
+		\begin{verbatim}
+		personName = "Frank"
+		personName = 7
+		\end{verbatim}
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+  \frametitle{Dynamically typed}
+	\begin{itemize}
+		\item Values are not assigned to types
+		\item Type checking done at runtime
+		\item Languages in Lisp family
+		\item The following example would give an error at runtime in dynamically typed:
+		\begin{verbatim}
+		personName = "Frank"
+		personName = 7
+		\end{verbatim}
+	\end{itemize}
 \end{frame}
 
 \section[Analyses]{Analyses of error messages}
 
 \subsection[DrRacket Analysis]{Analysis of DrRacket IDE}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{Racket programming language}
 		\begin{itemize}
-			\item Something goes here...
+			\item Programming language useful for teaching in introductory courses
+			\item Member of Lisp languages
+			\item Functional and dynamic language
+			\item Syntax example:
+			\begin{verbatim}
+			(+ 1 2)
+			-> 3
+			\end{verbatim}
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{IDEs and DrRacket}
+	\frametitle{Integrated development environments}
 		\begin{itemize}
-			\item Something goes here...
+			\item An integrated development environment (IDE) is a program for writing and running code
+			\item Some IDEs come packaged with debugging tools and custom error messages
 		\end{itemize}
 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Study and methods}
+\begin{frame}[fragile]
+	\frametitle{DrRacket}
 		\begin{itemize}
-			\item Something goes here...
+			\item An IDE for developing programs in Racket
+			\item Geared toward introductory programmers
+			\item DrRacket offers (mostly) user-friendly error messages and libraries to program in various levels
+			%\includegraphics[keepaspectratio, width= 1.0 \textwidth]{drracketGUI.png}
 		\end{itemize}
+		
+\end{frame}
+
+\begin{frame}
+	\frametitle{DrRacket interface}
+			\includegraphics[keepaspectratio, width= 1.0 \textwidth]{drracketGUI.png}
 
 \end{frame}
 
 \begin{frame}
+	\frametitle{Study of DrRacket error messages}
+		\begin{itemize}
+			\item Marceau et al. interested in finding which errors students struggled with
+			\item Configured DrRacket to save a copy of each program a student tried to execute and the error messages received
+			\item Programs taken from a once-per-week lab session
+		\end{itemize} 
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Table of results}
+	\includegraphics[keepaspectratio, width=1.0 \textwidth]{MEE-data.pdf}
+
+\end{frame}
+
+
+\begin{frame}[fragile]
 	\frametitle{Results}
 		\begin{itemize}
-			\item Something goes here...
+			\item Students struggle with certain errors relative to skill level
+			\item Some errors were not indicator of underlying issue
+			\begin{itemize}
+			\item student struggled with these errors
+			\item suggests issues in error message effectiveness
+			\end{itemize}
 		\end{itemize}
 
+\end{frame}
+
+\begin{frame}[fragile]
+ \frametitle{Student code example}
+ 			\begin{verbatim}
+(define (label-near? name bias word1 word2)
+  (cond
+      (and (cond [(string=? name word1) 
+                    "Name Located"]
+                 [(string=? bias word2)
+                    "Bias Located"])
+           (cond [(string=? name word2)
+                    "Name Located"]
+                 [(string=? bias word2) 
+                    "Bias Located"])
+     "Mark")
+))
+
+-> and: found a use of 'and' that does not follow 
+an open parenthesis
+			\end{verbatim}
 \end{frame}
 
 \subsection[Compiler Analysis]{Analysis of compiler errors}
@@ -205,7 +323,7 @@
 
 \end{frame}
 
-\section[Improving error messages]{Improving error messages}
+\section[Methodologies]{Methodologies for improving error messages}
 
 \subsection[DrRacket recommendations]{Recommendations for improving IDE error messages}
 
@@ -218,7 +336,7 @@
 \end{frame}
 
 \begin{frame}
-	\frametitle{first recommendations}
+	\frametitle{Recommendations}
 		\begin{itemize}
 			\item Something goes here...
 		\end{itemize}
@@ -306,9 +424,10 @@
 	\frametitle{Acknowledgments}
 	I would like to thank the following people:
 		\begin{itemize}
-			\item My advisor, Elena Machkasova, for helping with my senior seminar and useful feedback
+			\item My advisor, Elena Machkasova, for helping with my senior seminar and useful feedback on my paper and presentation
+			\item Stephen Adams and Jim Hall for providing useful feedback on my paper
 			\item Friends and family for attending
-			\item Myself, for writing the paper and doing this presentation
+			\item Paul Schliep as none of this would have been possible without him
 		\end{itemize}
 
 \end{frame}
