@@ -205,12 +205,31 @@ String index out of range: 12
 
 \subsection[DrRacket Analysis]{Analysis of DrRacket IDE}
 
+
+\begin{frame}
+  \frametitle{Overview of study}
+  \begin{itemize}
+  	\item Marceau et al. noticed students struggling with error messages in course
+  	\item Conducted study on DrRacket error messages in Spring of 2009
+  	\item Hoping to use the data to improve students' interactions with DrRacket error messages
+  \end{itemize}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Integrated development environments}
+		\begin{itemize}
+			\item An integrated development environment (IDE) is a program for writing and running code
+			\item Some IDEs come packaged with debugging tools and custom error messages
+		\end{itemize}
+\end{frame}
+
 \begin{frame}[fragile]
 	\frametitle{Racket programming language}
 		\begin{itemize}
 			\item Programming language useful for teaching in introductory courses
 			\item Member of Lisp languages
-			\item Functional and dynamic language
+			\item Functional language: computation as a composition of functions and retains immutable data and avoids changing state
+			\item dynamically typed
 			\item Syntax example:
 			\begin{verbatim}
 			(+ 1 2)
@@ -221,15 +240,6 @@ String index out of range: 12
 \end{frame}
 
 \begin{frame}
-	\frametitle{Integrated development environments}
-		\begin{itemize}
-			\item An integrated development environment (IDE) is a program for writing and running code
-			\item Some IDEs come packaged with debugging tools and custom error messages
-		\end{itemize}
-
-\end{frame}
-
-\begin{frame}[fragile]
 	\frametitle{DrRacket}
 		\begin{itemize}
 			\item An IDE for developing programs in Racket
@@ -263,7 +273,7 @@ String index out of range: 12
 \end{frame}
 
 
-\begin{frame}[fragile]
+\begin{frame}
 	\frametitle{Results}
 		\begin{itemize}
 			\item Students struggle with certain errors relative to skill level
@@ -300,25 +310,87 @@ an open parenthesis
 \subsection[Compiler Analysis]{Analysis of compiler errors}
 
 \begin{frame}
-	\frametitle{C++ programming language}
+	\frametitle{Overview of study}
 		\begin{itemize}
-			\item Something goes here...
+			\item Compiler error messages often cryptic and difficult for many programmers
+			\item Traver and his students found compiler errors messages difficult to understand
+			\item Traver conducted study in Fall 2002 at Jaume I University to verify which errors intro students struggle with
+				\begin{itemize}
+				\item course used C++ programming language
+				\end{itemize}
+		\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Intro to C++}
+		\begin{itemize}
+			\item Not designed to be taught in intro course
+			\item Imperative language: uses memory manipulation and state-changing statements to build computation
+			\item statically-typed
+			\item Object-oriented programming (OOP): method of programming around class hierarchy and creating objects
+			\item Syntax example:
+			\begin{verbatim}
+			int a = 2;
+			a = a + 2;
+			cout << a;
+			-> 2
+			\end{verbatim}
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{Study and methods}
+	\frametitle{Method of study}
 		\begin{itemize}
-			\item Something goes here...
+			\item GNU g++ compiler was used
+			\item Code gathered from students in lab sessions throughout semester
+			\item Analyzed each message and wrote out the following for each message:
+			\begin{itemize}
+				\item why the error occurred
+				\item possible alternate error message
+				\item why the error is unhelpful
+			\end{itemize}
 		\end{itemize}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example of code analyzed}
+Offending code:
+\begin{verbatim}
+SavingAccount::SavingAccount(){
+    float SavingAccount::getInterestRate() {
+   	  return rate;
+}
+\end{verbatim}
+
+Error message:
+\begin{verbatim}
+In method 'SavingAccount::SavingAccount()':
+declaration of 'float SavingAccount::getInterestRate()'
+outside of class is not definition
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+	\frametitle{Example continued}
+Alternative error message:
+\begin{verbatim}
+A function declaration inside a function body is 
+not possible. Did you forget '}' to close the 
+body of the previous function definition?
+\end{verbatim}
 
 \end{frame}
 
 \begin{frame}
 	\frametitle{Results}
 		\begin{itemize}
-			\item Something goes here...
+			\item Study makes a good case for compiler error usability
+			\item Hopes that approaches be considered to improve messages
+			\item Helped him understand which errors students students struggled with
 		\end{itemize}
 
 \end{frame}
@@ -427,7 +499,7 @@ an open parenthesis
 			\item My advisor, Elena Machkasova, for helping with my senior seminar and useful feedback on my paper and presentation
 			\item Stephen Adams and Jim Hall for providing useful feedback on my paper
 			\item Friends and family for attending
-			\item Paul Schliep as none of this would have been possible without him
+			\item Paul Schliep, as none of this would have been possible without him
 		\end{itemize}
 
 \end{frame}
@@ -462,22 +534,20 @@ an open parenthesis
 	\begin{thebibliography}{lskdjf}
 	
 	\bibitem{McPhee:2009:gecco}
-N.~F. McPhee, E.~Crane, S.~Lahr, and R.~Poli.
-\newblock Developmental Plasticity in Linear Genetic Programming.
-\newblock In G\"unther Raidl, \emph{et al}, editors, {\em GECCO '09}, pages 1019--1026, Montr\'eal, Qu\'ebec, Canada, 2009.
+Marceau, G., Fisler, K., and Krishnamurthi s.
+\newblock Measuring the effectiveness of error messages designed for novice programmers.
+\newblock In Proceedings of the 42nd ACM Technical Symposium on Computer Science Education, New York, NY, USA, 2011.
 	
 	\bibitem{citeulike:3452411}
-	R.~Poli and N.~McPhee.
-\newblock A linear estimation-of-distribution {GP} system.
-\newblock In M.~O'Neill, \emph{et al}, editors, {\em EuroGP 2008}, volume
-  4971 of {\em LNCS}, pages 206--217, Naples,
-  26-28 Mar. 2008. Springer.
+	Traver, V.J.
+\newblock On compiler error messages: What they say and what they mean.
+\newblock In Advances in Human-Computer Interaction, 2010.
   
   	\end{thebibliography}
 	
 	\linespace
 	\begin{center}
-	See the GECCO '09 paper for additional references.
+	See my senior seminar paper for additional references.
 	\end{center}
 \end{frame} 
 

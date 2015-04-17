@@ -164,7 +164,7 @@ We use C++ and Java in several examples throughout this paper.
 C++ and Java are widely used programming languages not designed for introductory programming.
 However, C++ and Java are often taught in a first computer science course.
 C++ and Java are both imperative languages, which is a programming style that, as opposed to functional programming, uses a sequence of statements to build a computation using memory manipulation and changing the state of objects in a program.
-These languages both fall in the style of Object-oriented programming, or OOP, which is a method of programming based on class hierarchy and is based around creating objects, which are data structures that contain a set of routines called methods. 
+These languages both fall in the style of object-oriented programming, or OOP, which is a method of programming based on class hierarchy and is based around creating objects, which are data structures that contain a set of routines called methods. 
 Java and C++ are statically typed languages, which means type checking is done at compile-time rather than runtime and objects are bound to types. 
 This means that when programming in statically typed languages, a programmer may need to pay more attention to how types are cast, but provides benefits such as earlier detection of programming mistakes.
 
@@ -255,7 +255,7 @@ Unfortunately, as Traver notes, ``most related disciplines, including compiler t
 Traver proposed to research compiler error message usability from a strictly HCI viewpoint.
 So, we will not cover technical implications of developing error messages for compilers, but rather the how usable they are for helping introductory programmers resolve issues with their program.
 
-In the first semester of 2002-2003, Traver conducted a case study on students' work with compiler error messages in C++ in an introductory computer science course.
+In the Fall semester of 2002 at Jaume I University, Traver conducted a case study on students' work with compiler error messages in C++ in an introductory computer science course.
 The motivation of this study is to gain insight on what errors students are struggling with in the course.
 Traver gathered data from the students' interactions with C++ throughout the semester and wrote up analyses of the error messages received in 5 separate parts.
 \begin{itemize}
@@ -282,6 +282,13 @@ In method 'SavingAccount::SavingAccount()':
 declaration of 
 'float SavingAccount::getInterestRate()'
 outside of class is not definition
+\end{verbatim}
+
+Alternative error message:
+\begin{verbatim}
+A function declaration inside a function body is 
+not possible. Did you forget '}' to close the 
+body of the previous function definition?
 \end{verbatim}
 
 In this case, the programmer forgot to close the curly bracket for the body of the method, so a syntax error would be thrown.
