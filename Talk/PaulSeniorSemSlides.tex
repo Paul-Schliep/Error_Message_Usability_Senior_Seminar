@@ -400,33 +400,44 @@ body of the previous function definition?
 \subsection[DrRacket recommendations]{Recommendations for improving IDE error messages}
 
 \begin{frame}
-	\frametitle{Introduction to recommendations}
-		\begin{itemize}
-			\item Something goes here...
-		\end{itemize}
-
-\end{frame}
-
-\begin{frame}
 	\frametitle{Recommendations}
 		\begin{itemize}
-			\item Something goes here...
+			\item Marceau et al. based their research on these 
+			\item Wanted to maintain two design principles:
+			\begin{itemize}
+				\item error messages should not propose solutions
+				\item error messages should not prompt toward incorrect edits
+			\end{itemize}
 		\end{itemize}
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
 	\frametitle{recommendations continued}
 		\begin{itemize}
-			\item Something goes here...
+			\item Simplify message vocabulary
+				\begin{itemize}
+					\item eg, student will understand \texttt{variable} more than \texttt{identifier}
+					\item these should be for lower levels in DrRacket
+				\end{itemize}
+			\item Be explicit with constructor or function usage in highlighting
+			\item Color coding references with its corresponding code
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{conclusions and future work for program}
+	\frametitle{Color coded error message}
+	Red highlights definition, green highlights clause, blue highlights definition
+	\center
+		\includegraphics[keepaspectratio, width=0.8 \textwidth]{ColorCodedMessage.pdf}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Future work}
 		\begin{itemize}
-			\item Something goes here...
+			\item Recommendations implemented in How to Design Programs (HtDP) libraries in DrRacket
+			\item Further research needed to evaluate HtDP libraries
 		\end{itemize}
 
 \end{frame}
@@ -434,25 +445,38 @@ body of the previous function definition?
 \subsection[Syntax error enhancement]{Analysis of syntax error enhancement}
 
 \begin{frame}
-	\frametitle{Java and syntax errors}
+	\frametitle{Intro to syntax errors}
 		\begin{itemize}
-			\item Something goes here...
+			\item Introductory students most likely receive many syntax errors in first few weeks of learning language
+			\item "Syntax errors are significant barrier to student success" - Denny et al.
+			\item Denny et al. propose to improve syntax error messages in course
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{How they developed the program}
+	\frametitle{Improving errors}
 		\begin{itemize}
-			\item Something goes here...
+			\item Course used Java, language similar to C++
+			\item Course also used CodeWrite, online IDE
+			\item Pulled student submissions from CodeWrite
+			\item Match commonly erroneous code, extracted line containing error, and inserted their enhanced error
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{How they tested the program}
+	\frametitle{Enhanced syntax error example}
+	\includegraphics[keepaspectratio, width=0.8 \textwidth]{EnhancedSyntaxErrorSlide.pdf}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Testing the enhanced syntax messages}
 		\begin{itemize}
-			\item Something goes here...
+			\item Students in control group (original error messages) and intervention group (enhanced error messages)
+			\item Compared attempts of student submissions to see if it would reduce the number of non-compiling submissions overall
+			\item Used t-tests to find results
+			(still need to define t-test)
 		\end{itemize}
 
 \end{frame}
@@ -460,15 +484,22 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Results of syntax enhancement}
 		\begin{itemize}
-			\item Something goes here...
+			\item t-tests gave high p-values (p > 0.05)
+				\begin{itemize}
+				\item indication of no evidence of significant difference between the groups
+				\end{itemize}
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
-	\frametitle{Conclusions and future work of program}
+	\frametitle{Future work}
 		\begin{itemize}
-			\item Something goes here...
+			\item Denny et al. believed several factors were cause for no significance
+			\begin{itemize}
+				\item for example, students may not have paid attention to additional information
+			\end{itemize}
+			\item Authors would like to apply additional research to improve their messages
 		\end{itemize}
 
 \end{frame}
@@ -479,7 +510,13 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Results}
 		\begin{itemize}
-			\item Something goes here...
+			\item Some work needs to be done with DrRacket error messages to better report the actual errors
+			\item Compiler error messages are an issue in terms of usability
+			\item Research is being done in attempt to improve error messages
+			\begin{itemize}
+				\item Marceau et al. recommendations for error message design in IDEs
+				\item Denny et al. syntax error message enhancement
+			\end{itemize}
 		\end{itemize}
 
 \end{frame}
@@ -487,7 +524,12 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Future work}
 		\begin{itemize}
-			\item Something goes here...
+			\item HtDP libraries implemented Marceau et al. research
+			\item Some work being done to attempt to improve compiler error messages
+			\item Growing interest in computer science
+			\begin{itemize}
+				\item more user-friendly error messages are a necessity
+			\end{itemize}
 		\end{itemize}
 
 \end{frame}
