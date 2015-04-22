@@ -2,8 +2,9 @@
 
 \mode<presentation>
 {
-  \usetheme{Warsaw}
+  \usetheme{Frankfurt}
   \setbeamercovered{transparent}
+  \usecolortheme{wolverine}
 }
 
 \usepackage[english]{babel}
@@ -27,7 +28,7 @@
 
 % The text in square brackets is the short version of your title and will be used in the
 % header/footer depending on your theme.
-\title[Usability of error messages for introductory students]{Usability of error messages for \\ introductory students}
+\title[Usability of Error Messages for Introductory Students]{Usability of error messages for \\ introductory students}
 
 % Sub-titles are optional - uncomment and edit the next line if you want one.
 % \subtitle{Why does sub-tree crossover work?} 
@@ -78,14 +79,18 @@
 \begin{frame}[fragile]
   \frametitle{Introduction to error messages}
   \begin{itemize}
-  	\item In programming, an error is when the computer cannot understand an expression in the code
+  	\item Mistakes happen a lot in programming
   	\begin{itemize}
-  		\item these errors will return an error message
+  		\item especially for new programmers
   	\end{itemize}
+  	\item Error messages returned from programming mistakes
+  	\item Tells the user information about the issue
   	\item Here's an example of an error message:
   	  \begin{verbatim}
-  print("Hello World";
-  ->java.3: error: unclosed string literal
+int three = 3;
+System.out.print(to);
+-> error: 
+`three' cannot be resolved to a variable
   	\end{verbatim}
   \end{itemize}
 \end{frame}
@@ -93,45 +98,41 @@
 \begin{frame}
   \frametitle{Importance of error messages}
   \begin{itemize}
+    \item Analyze error messages from usability perspective
   	\item Error messages are important tool for beginner programmers
   	\begin{itemize}
   		\item one of the primary interactions between the system and the user
   	\end{itemize}
-  	\item Unhelpful error messages impose learning difficulties, especially for new programmers
-  	\item Error messages with poor usability can lead the user down the wrong path
+  	\item A good error message should:
+  	\begin{itemize}
+  		\item be easy to understand
+  		\item help a student locate the issue
+  		\item not add confusion
+  	\end{itemize}
+  	\item Unhelpful error messages create frustration
   \end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Goals of an error message}
-  \begin{itemize}
-  	\item An error message should:
-  	\begin{itemize}
-  		\item not add confusion
-  		\item be easy to understand
-  		\item help a student locate the issue
-  	\end{itemize}
-  	\item Example:
-  	\begin{verbatim}
-  	Developing...
-  	\end{verbatim}
-  \end{itemize}
+	\frametitle{Example of poor error message}
+	\begin{verbatim}
+	developing...
+	\end{verbatim}
 \end{frame}
 
-\begin{frame}
- \frametitle{Analyzing error messages}
- \begin{itemize}
- 	\item Human-computer interaction: study on interfaces between user and programs
- 	\item Much of the research presented from an HCI perspective
- 	\item We will discuss error messages in terms of usability
- \end{itemize}
-\end{frame}
+%\begin{frame}[fragile]
+%  \frametitle{Overview of research and motivation}
+%  \begin{itemize}
+%  	\item Analyze error messages from usability perspective
+%  	\item 
+%  \end{itemize}
+%\end{frame}
 
 \subsection*{Outline}
 
 \begin{frame}
   \frametitle{Outline}
-  \tableofcontents[hideallsubsections]
+  \tableofcontents
 \end{frame}
 
 \section[Background]{Background}
@@ -159,11 +160,11 @@
 			\item Cannot be predicted, dependent on the values
 			\item Example:
 			\begin{verbatim}
-			String string = "Hello World";
-System.out.print(string.substring(6,12));
+			String string = "hello";
+System.out.print(string.substring(3,6));
 
 java.lang.StringIndexOutOfBoundsException:
-String index out of range: 12
+String index out of range: 6
 			\end{verbatim}
 		\end{itemize}
 \end{frame}
@@ -171,29 +172,24 @@ String index out of range: 12
 \subsection{Dynamic and statically typed}
 
 \begin{frame}[fragile]
-  \frametitle{Statically typed}
+  \frametitle{Statically typed languages}
 	\begin{itemize}
-		\item All variables and/or objects assigned types
+		\item Variables assigned types
 		\item Type checking done at compile time
-		\begin{itemize}
-			\item this means different error messages
-		\end{itemize}
-		\item Languages like Java or C++ are statically typed
-		\item The following example would give an error at compile time in statically typed:
+		\item Would give compile time error
 		\begin{verbatim}
-		personName = "Frank"
-		personName = 7
+		String personName = "Frank";
+		personName = 7;
 		\end{verbatim}
 	\end{itemize}
 \end{frame}
 
 \begin{frame}[fragile]
-  \frametitle{Dynamically typed}
+  \frametitle{Dynamically typed languages}
 	\begin{itemize}
-		\item Values are not assigned to types
+		\item Variables are not assigned to types
 		\item Type checking done at runtime
-		\item Languages in Lisp family
-		\item The following example would give an error at runtime in dynamically typed:
+		\item Would give runtime error
 		\begin{verbatim}
 		personName = "Frank"
 		personName = 7
