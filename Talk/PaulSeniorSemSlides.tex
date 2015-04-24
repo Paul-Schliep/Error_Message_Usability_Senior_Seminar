@@ -11,6 +11,7 @@
 \usepackage[latin1]{inputenc}
 \usepackage{times}
 \usepackage[T1]{fontenc} 
+\usepackage{tikz}
 % Or whatever. Note that the encoding and the font should match. If T1
 % does not look nice, try deleting the line with the fontenc.
 \usepackage{amsmath}
@@ -28,14 +29,14 @@
 
 % The text in square brackets is the short version of your title and will be used in the
 % header/footer depending on your theme.
-\title[Usability of Error Messages for Introductory Students]{Usability of error messages for \\ introductory students}
+\title[Usability of Error Messages for Introductory Students]{Usability of Error Messages For \\ Introductory Students}
 
 % Sub-titles are optional - uncomment and edit the next line if you want one.
 % \subtitle{Why does sub-tree crossover work?} 
 
 % The text in square brackets is the short version of your name(s) and will be used in the
 % header/footer depending on your theme.
-\author[Schliep]{Paul Andrew Schliep}
+\author[Schliep]{Paul A. Schliep}
 
 % The text in square brackets is the short version of your institution and will be used in the
 % header/footer depending on your theme.
@@ -43,12 +44,11 @@
 {
   Division of Science and Mathematics \\
   University of Minnesota, Morris \\
-  Morris, Minnesota, USA
 }
 
 % The text in square brackets is the short version of the date if you need that.
 \date[April '15] % (optional)
-{25 April 2015 \\ University of Minnesota, Morris}
+{25 April 2015}
 
 % Delete this, if you do not want the table of contents to pop up at
 % the beginning of each subsection:
@@ -83,15 +83,16 @@
   	\begin{itemize}
   		\item especially for new programmers
   	\end{itemize}
-  	\item Error messages returned from programming mistakes
+  	\item Error messages produced from programming mistakes
   	\item Tells the user information about the issue
-  	\item Here's an example of an error message:
+  	\item Here's an example of an error message (in Java):
   	  \begin{verbatim}
 int three = 3;
-System.out.print(to);
+System.out.print(tree);
 -> error: 
-`three' cannot be resolved to a variable
+`tree' cannot be resolved to a variable
   	\end{verbatim}
+  	\item \texttt{->} denoted as output
   \end{itemize}
 \end{frame}
 
@@ -113,12 +114,12 @@ System.out.print(to);
   \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]
-	\frametitle{Example of poor error message}
-	\begin{verbatim}
-	developing...
-	\end{verbatim}
-\end{frame}
+%\begin{frame}[fragile]
+%	\frametitle{Example of poor error message}
+%	\begin{verbatim}
+%	developing...
+%	\end{verbatim}
+%\end{frame}
 
 %\begin{frame}[fragile]
 %  \frametitle{Overview of research and motivation}
@@ -142,12 +143,12 @@ System.out.print(to);
 \begin{frame}[fragile]
 	\frametitle{Compiler errors}
 		\begin{itemize}
-			\item When a compiler fails to compile a program, a user will receive a compiler error message
+			\item Compiler errors occur when there are errors in the code the compiler finds
 			\item For newer programmers, these typically occur from syntax errors
 			\item Example (in Java):
 			\begin{verbatim}
 		int seven = (2 + 5;
-		error: ')' expected
+		-> error: ')' expected
 			\end{verbatim}
 		\end{itemize}
 \end{frame}
@@ -155,15 +156,15 @@ System.out.print(to);
 \begin{frame}[fragile]
 	\frametitle{Runtime errors}
 		\begin{itemize}
-			\item A runtime error occurs after a program has compiled
+			\item Runtime error occurs after a program has compiled, during execution of the program
 			\item Usually indication of logical errors in the code
-			\item Cannot be predicted, dependent on the values
+			\item Cannot be found by compiler, dependent on the values
 			\item Example:
 			\begin{verbatim}
-			String string = "hello";
+String string = "hello";
 System.out.print(string.substring(3,6));
 
-java.lang.StringIndexOutOfBoundsException:
+-> java.lang.StringIndexOutOfBoundsException:
 String index out of range: 6
 			\end{verbatim}
 		\end{itemize}
@@ -176,7 +177,7 @@ String index out of range: 6
 	\begin{itemize}
 		\item Variables assigned types
 		\item Type checking done at compile time
-		\item Would give compile time error
+		\item Following code would give compile time error
 		\begin{verbatim}
 		String personName = "Frank";
 		personName = 7;
@@ -189,10 +190,11 @@ String index out of range: 6
 	\begin{itemize}
 		\item Variables are not assigned to types
 		\item Type checking done at runtime
-		\item Would give runtime error
+		\item Following would give runtime error
 		\begin{verbatim}
-		personName = "Frank"
-		personName = 7
+		var x = "Frank";
+		var y = 7;
+		x - y;
 		\end{verbatim}
 	\end{itemize}
 \end{frame}
@@ -201,30 +203,11 @@ String index out of range: 6
 
 \subsection[DrRacket Analysis]{Analysis of DrRacket IDE}
 
-
-\begin{frame}
-  \frametitle{Overview of study}
-  \begin{itemize}
-  	\item Marceau et al. noticed students struggling with error messages in course
-  	\item Conducted study on DrRacket error messages in Spring of 2009
-  	\item Hoping to use the data to improve students' interactions with DrRacket error messages
-  \end{itemize}
-\end{frame}
-
-\begin{frame}
-	\frametitle{Integrated development environments}
-		\begin{itemize}
-			\item An integrated development environment (IDE) is a program for writing and running code
-			\item Some IDEs come packaged with debugging tools and custom error messages
-		\end{itemize}
-\end{frame}
-
 \begin{frame}[fragile]
 	\frametitle{Racket programming language}
 		\begin{itemize}
 			\item Programming language useful for teaching in introductory courses
-			\item Member of Lisp languages
-			\item Functional language: computation as a composition of functions and retains immutable data and avoids changing state
+			\item Functional language: computation as a composition of functions, retains immutable data, avoids changing state
 			\item dynamically typed
 			\item Syntax example:
 			\begin{verbatim}
@@ -236,35 +219,50 @@ String index out of range: 6
 \end{frame}
 
 \begin{frame}
-	\frametitle{DrRacket}
+	\frametitle{DrRacket integrated development environment}
 		\begin{itemize}
-			\item An IDE for developing programs in Racket
+			\item An integrated development environment (IDE) is a program for writing and running code
+			\item DrRacket is an IDE for developing programs in Racket
 			\item Geared toward introductory programmers
-			\item DrRacket offers (mostly) user-friendly error messages and libraries to program in various levels
-			%\includegraphics[keepaspectratio, width= 1.0 \textwidth]{drracketGUI.png}
+			\item DrRacket offers user-friendly error messages and libraries
 		\end{itemize}
 		
 \end{frame}
 
-\begin{frame}
-	\frametitle{DrRacket interface}
-			\includegraphics[keepaspectratio, width= 1.0 \textwidth]{drracketGUI.png}
+%\begin{frame}
+%	\frametitle{DrRacket interface}
+%%			\includegraphics[keepaspectratio, width= 1.0 \textwidth]%{drracketGUI.png}
 
-\end{frame}
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Study of DrRacket error messages}
 		\begin{itemize}
-			\item Marceau et al. interested in finding which errors students struggled with
-			\item Configured DrRacket to save a copy of each program a student tried to execute and the error messages received
-			\item Programs taken from a once-per-week lab session
-		\end{itemize} 
+		  	\item Marceau et al. noticed students struggling with error messages in course
+			\item Conducted study on DrRacket error messages in Spring 2010
+			\item Interested in which errors students struggled with
+			\item Hoping to use data to improve student interactions with DrRacket error messages
 
+		\end{itemize}
+\end{frame}
+		
+\begin{frame}
+	\frametitle{Method}
+ 		\begin{itemize}
+			\item Configured DrRacket to save a copy of each program from 6 consecutive lab sessions
+			\item Measured errors students responded poorly to
+			\item Group errors into nine related categories
+ 		\end{itemize}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Table of results}
-	\includegraphics[keepaspectratio, width=1.0 \textwidth]{MEE-data.pdf}
+	\begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[width=\paperwidth]{MEE-data.pdf}
+            };
+        \end{tikzpicture}
+	%\includegraphics[width=\paperwidth]{MEE-data.pdf}
 
 \end{frame}
 
@@ -272,48 +270,84 @@ String index out of range: 6
 \begin{frame}
 	\frametitle{Results}
 		\begin{itemize}
-			\item Students struggle with certain errors relative to skill level
+			\item Errors were difficult relative to course material
 			\item Some errors were not indicator of underlying issue
 			\begin{itemize}
-			\item student struggled with these errors
+			\item students struggled with these errors
 			\item suggests issues in error message effectiveness
 			\end{itemize}
 		\end{itemize}
 
 \end{frame}
 
-\begin{frame}[fragile]
- \frametitle{Student code example}
- 			\begin{verbatim}
-(define (label-near? name bias word1 word2)
-  (cond
-      (and (cond [(string=? name word1) 
-                    "Name Located"]
-                 [(string=? bias word2)
-                    "Bias Located"])
-           (cond [(string=? name word2)
-                    "Name Located"]
-                 [(string=? bias word2) 
-                    "Bias Located"])
-     "Mark")
-))
+%\begin{frame}[fragile]
+% \frametitle{Student code example}
+%				\textcolor{orange}{
+%				\texttt{
+%;; Locates bias or name from 2 words
+%}}
 
--> and: found a use of 'and' that does not follow 
-an open parenthesis
-			\end{verbatim}
+% 			\begin{verbatim}
+%1 (define (label-near? name bias word1 word2)
+%2   (cond
+%3      (and (cond [(string=? name word1) 
+%4                    "Name Located"]
+%5                 [(string=? bias word2)
+%6                    "Bias Located"])
+%7           (cond [(string=? name word2)
+%8                    "Name Located"]
+%9                 [(string=? bias word2) 
+%10                   "Bias Located"])
+%11    "Mark")))
+%-> and: found a use of `and' that does not follow 
+%an open parenthesis
+%\end{verbatim}
+%\end{frame}
+
+\begin{frame}
+ \frametitle{Student edit example}
+ \begin{itemize}
+ \item Missing parentheses before \texttt{cond} on line 2
+ \item Same error message produced for each edit
+ \end{itemize}
+ 	%\begin{tikzpicture}[remember picture,overlay]
+      %      \node[at=(current page.center)] {
+      %          \includegraphics[width=\paperwidth]{RacketStudentEditPt1.pdf}
+      %      };
+      %  \end{tikzpicture}
+      \
+      \includegraphics[width=0.9\paperwidth]{RacketStudentEditPt1.pdf}
+      		\\
+		\only{\tiny{Marceau et al.}}
+\end{frame}
+
+\begin{frame}
+ \frametitle{Student edit example continued}
+ 	%\begin{tikzpicture}[remember picture,overlay]
+       %     \node[at=(current page.center)] {
+       %         \includegraphics[width=\paperwidth]{RacketStudentEditPt2.pdf}
+       %     };
+       % \end{tikzpicture}
+       \includegraphics[width=0.9\paperwidth]{RacketStudentEditPt2.pdf}
+       		\\
+		\only{\tiny{Marceau et al.}}
 \end{frame}
 
 \subsection[Compiler Analysis]{Analysis of compiler errors}
 
 \begin{frame}
-	\frametitle{Overview of study}
+	\frametitle{Analysis of compiler errors}
 		\begin{itemize}
-			\item Compiler error messages often cryptic and difficult for many programmers
-			\item Traver and his students found compiler errors messages difficult to understand
-			\item Traver conducted study in Fall 2002 at Jaume I University to verify which errors intro students struggle with
+			\item Compiler error messages often difficult
+			\item Traver interested in finding errors students struggled with
+			\item Conducted study in Fall 2010 at Jaume I University
 				\begin{itemize}
 				\item course used C++ programming language
 				\end{itemize}
+			\item Study from a strictly usability perspective
+			\begin{itemize}
+				\item did not consider technical constraints
+			\end{itemize}
 		\end{itemize}
 
 \end{frame}
@@ -322,15 +356,14 @@ an open parenthesis
 	\frametitle{Intro to C++}
 		\begin{itemize}
 			\item Not designed to be taught in intro course
-			\item Imperative language: uses memory manipulation and state-changing statements to build computation
-			\item statically-typed
-			\item Object-oriented programming (OOP): method of programming around class hierarchy and creating objects
+			\item Imperative language: uses memory manipulation and state-changing statements
+			\item Statically-typed
 			\item Syntax example:
 			\begin{verbatim}
 			int a = 2;
 			a = a + 2;
-			cout << a;
-			-> 2
+			cout << a << endl;
+			-> 4
 			\end{verbatim}
 		\end{itemize}
 
@@ -339,12 +372,12 @@ an open parenthesis
 \begin{frame}
 	\frametitle{Method of study}
 		\begin{itemize}
-			\item GNU g++ compiler was used
-			\item Code gathered from students in lab sessions throughout semester
-			\item Analyzed each message and wrote out the following for each message:
+			\item GNU g++ compiler used
+			\item Erroneous student code gathered from semester
+			\item Analyzed each message:
 			\begin{itemize}
 				\item why the error occurred
-				\item possible alternate error message
+				\item possible alternative error message
 				\item why the error is unhelpful
 			\end{itemize}
 		\end{itemize}
@@ -353,18 +386,19 @@ an open parenthesis
 
 \begin{frame}[fragile]
 	\frametitle{Example of code analyzed}
-Offending code:
+Offending code (missing curly brace):
 \begin{verbatim}
-SavingAccount::SavingAccount(){
-    float SavingAccount::getInterestRate() {
-   	  return rate;
-}
+1 SavingAccount::SavingAccount(){
+2     float SavingAccount::getInterestRate() {
+3    	  return rate;
+4 }
 \end{verbatim}
 
 Error message:
 \begin{verbatim}
 In method 'SavingAccount::SavingAccount()':
-declaration of 'float SavingAccount::getInterestRate()'
+declaration of 
+'float SavingAccount::getInterestRate()'
 outside of class is not definition
 \end{verbatim}
 
@@ -379,14 +413,22 @@ not possible. Did you forget '}' to close the
 body of the previous function definition?
 \end{verbatim}
 
+\begin{itemize}
+	\item Original error is confusing
+	\begin{itemize}
+		\item does not tell user missing curly brace
+	\end{itemize}
+\end{itemize}
+
 \end{frame}
 
 \begin{frame}
 	\frametitle{Results}
 		\begin{itemize}
-			\item Study makes a good case for compiler error usability
+			\item No quantitative data, just observations
+			\item Makes a good case to improve compiler error message usability
 			\item Hopes that approaches be considered to improve messages
-			\item Helped him understand which errors students students struggled with
+			\item Future work: develop methods to improve messages in course
 		\end{itemize}
 
 \end{frame}
@@ -398,7 +440,7 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Recommendations}
 		\begin{itemize}
-			\item Marceau et al. based their research on these 
+			\item Marceau et al. used previous research
 			\item Wanted to maintain two design principles:
 			\begin{itemize}
 				\item error messages should not propose solutions
@@ -416,23 +458,34 @@ body of the previous function definition?
 					\item eg, student will understand \texttt{variable} more than \texttt{identifier}
 					\item these should be for lower levels in DrRacket
 				\end{itemize}
-			\item Be explicit with constructor or function usage in highlighting
+			\item Be explicit with highlighting
 			\item Color coding references with its corresponding code
 		\end{itemize}
 
 \end{frame}
 
 \begin{frame}
+	\frametitle{Poor highlighting example}
+	\begin{itemize}
+		\item Runtime error, never refers to highlighted expression
+	\end{itemize}
+		\includegraphics[keepaspectratio, width=0.95\paperwidth]{DrRacketNoClearReferent.pdf}
+		\\
+		\only{\tiny{Marceau et al.}}
+\end{frame}
+
+\begin{frame}
 	\frametitle{Color coded error message}
-	Red highlights definition, green highlights clause, blue highlights definition
-	\center
-		\includegraphics[keepaspectratio, width=0.8 \textwidth]{ColorCodedMessage.pdf}
+	Red highlights definition, green highlights clause, blue highlights definition \\~\\
+		\includegraphics[keepaspectratio, width=0.85\paperwidth]{ColorCodedMessage.pdf}
+		\\
+		\only{\tiny{Marceau et al.}}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Future work}
 		\begin{itemize}
-			\item Recommendations implemented in How to Design Programs (HtDP) libraries in DrRacket
+			\item How to Design Programs (HtDP) libraries for DrRacket
 			\item Further research needed to evaluate HtDP libraries
 		\end{itemize}
 
@@ -443,9 +496,9 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Intro to syntax errors}
 		\begin{itemize}
-			\item Introductory students most likely receive many syntax errors in first few weeks of learning language
-			\item "Syntax errors are significant barrier to student success" - Denny et al.
-			\item Denny et al. propose to improve syntax error messages in course
+			\item Syntax errors when learning a new language
+			\item "Syntax errors can be a significant barrier to student success"  - Denny et al.
+			\item Denny et al. propose to improve syntax error messages
 		\end{itemize}
 
 \end{frame}
@@ -456,23 +509,42 @@ body of the previous function definition?
 			\item Course used Java, language similar to C++
 			\item Course also used CodeWrite, online IDE
 			\item Pulled student submissions from CodeWrite
-			\item Match commonly erroneous code, extracted line containing error, and inserted their enhanced error
+			\item Match common erroneous code, extracted line containing error, and inserted their enhanced error
 		\end{itemize}
 
 \end{frame}
 
+\begin{frame}[fragile]
+	\frametitle{Syntax error}
+	Erroneous code:
+	\begin{verbatim}
+	if (score < 0) || (score > 100)
+	
+	-> Syntax error on token "||", if expected
+	\end{verbatim}
+\end{frame}
+
 \begin{frame}
 	\frametitle{Enhanced syntax error example}
-	\includegraphics[keepaspectratio, width=0.8 \textwidth]{EnhancedSyntaxErrorSlide.pdf}
+		\begin{tikzpicture}[remember picture,overlay]
+            \node[at=(current page.center)] {
+                \includegraphics[width=0.80\paperwidth]{EnhancedSyntaxErrorSlide.pdf}
+            };
+        \end{tikzpicture}
+              		\\
+		\only{\tiny{Denny et al.}}
+	%\includegraphics[keepaspectratio, width=0.8 \textwidth]{EnhancedSyntaxErrorSlide.pdf}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Testing the enhanced syntax messages}
 		\begin{itemize}
-			\item Students in control group (original error messages) and intervention group (enhanced error messages)
-			\item Compared attempts of student submissions to see if it would reduce the number of non-compiling submissions overall
+			\item Control group (original error messages) and intervention group (enhanced error messages)
+			\item Compared attempts of student submissions
 			\item Used t-tests to find results
-			(still need to define t-test)
+			\begin{itemize}
+				\item t-test: finds if there is statistical significant difference between two data groups
+			\end{itemize}
 		\end{itemize}
 
 \end{frame}
@@ -482,8 +554,9 @@ body of the previous function definition?
 		\begin{itemize}
 			\item t-tests gave high p-values (p > 0.05)
 				\begin{itemize}
-				\item indication of no evidence of significant difference between the groups
+				\item indication of no evidence of statistical significant difference
 				\end{itemize}
+				TODO: Make table of results of p-values
 		\end{itemize}
 
 \end{frame}
@@ -491,11 +564,12 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Future work}
 		\begin{itemize}
-			\item Denny et al. believed several factors were cause for no significance
+			\item Denny et al. believed several factors were the cause for no significance
 			\begin{itemize}
-				\item for example, students may not have paid attention to additional information
+				\item may not have paid attention to additional information
+				\item examples not relevant to student code
 			\end{itemize}
-			\item Authors would like to apply additional research to improve their messages
+			\item Hope to apply additional research into their messages
 		\end{itemize}
 
 \end{frame}
@@ -504,31 +578,37 @@ body of the previous function definition?
 \section[Conclusions]{Conclusions}
 
 \begin{frame}
-	\frametitle{Results}
+	\frametitle{Conclusions and future work}
 		\begin{itemize}
-			\item Some work needs to be done with DrRacket error messages to better report the actual errors
-			\item Compiler error messages are an issue in terms of usability
-			\item Research is being done in attempt to improve error messages
+			\item Marceau et al. apply additional research to determine changes in curriculum and DrRacket
+			\item Study by Traver, hopes to implement developed alternative error messages in course
+			\item Marceau et al. HtDP libraries, requires further evaluation
+			\item Denny et al. hope to further study their enhanced syntax error messages
 			\begin{itemize}
-				\item Marceau et al. recommendations for error message design in IDEs
-				\item Denny et al. syntax error message enhancement
-			\end{itemize}
+				\item testing was helpful in evaluation of program
+			\end{itemize}	
 		\end{itemize}
 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Future work}
-		\begin{itemize}
-			\item HtDP libraries implemented Marceau et al. research
-			\item Some work being done to attempt to improve compiler error messages
-			\item Growing interest in computer science
-			\begin{itemize}
-				\item more user-friendly error messages are a necessity
-			\end{itemize}
-		\end{itemize}
+%\begin{frame}
+% \frametitle{Conclusions of methodologies}
+% 	\begin{itemize}		 			 
+%	 \end{itemize}
+%\end{frame}
 
-\end{frame}
+%\begin{frame}
+%	\frametitle{Future work}
+%		\begin{itemize}
+%			\item HtDP libraries implemented Marceau et al. research
+%			\item Some work being done to attempt to improve compiler error messages
+%			\item Growing interest in computer science
+%			\begin{itemize}
+%				\item more user-friendly error messages are a necessity
+%			\end{itemize}
+%		\end{itemize}
+
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Acknowledgments}
@@ -537,15 +617,46 @@ body of the previous function definition?
 			\item My advisor, Elena Machkasova, for helping with my senior seminar and useful feedback on my paper and presentation
 			\item Stephen Adams and Jim Hall for providing useful feedback on my paper
 			\item Friends and family for attending
-			\item Paul Schliep, as none of this would have been possible without him
+	%		\item Paul Schliep, as none of this would have been possible without him
 		\end{itemize}
 
 \end{frame}
 
+\section*{References}
+
+\begin{frame} 
+	\frametitle{References} 
+	
+	\begin{thebibliography}{lskdjf}
+	
+	\bibitem{citeulike:3452411}
+Marceau, G., Fisler, K., and Krishnamurthi s.
+\newblock Measuring the effectiveness of error messages designed for novice programmers.
+
+	\bibitem{citeulike:3452411}
+Marceau, G., Fisler, K., and Krishnamurthi s.
+\newblock Mind your language: On novices' interactions with error messages
+
+\bibitem{citeulike:3452411}
+Denny, P., Luxton-Reilly, A., and Carpenter, D.
+\newblock Enhancing syntax error messages appears ineffectual
+	
+	\bibitem{citeulike:3452411}
+	Traver, V.J.
+\newblock On compiler error messages: What they say and what they mean.
+  
+  	\end{thebibliography}
+	
+	\linespace
+	\begin{center}
+	See my seminar paper in "Proceedings of the Thirty-Fourth Computer Science Discipline" for additional references.
+	\end{center}
+\end{frame} 
+
 \begin{frame}
 	\frametitle{Thanks!}
 	
-	Thank you for your time and attention!
+	Thank you for your time and I hope you enjoyed the talk
 		
 	\linespace
 	\linespace
@@ -564,30 +675,6 @@ body of the previous function definition?
 	\end{center}
 \end{frame}
 
-\section*{References}
-
-\begin{frame} 
-	\frametitle{References} 
-	
-	\begin{thebibliography}{lskdjf}
-	
-	\bibitem{McPhee:2009:gecco}
-Marceau, G., Fisler, K., and Krishnamurthi s.
-\newblock Measuring the effectiveness of error messages designed for novice programmers.
-\newblock In Proceedings of the 42nd ACM Technical Symposium on Computer Science Education, New York, NY, USA, 2011.
-	
-	\bibitem{citeulike:3452411}
-	Traver, V.J.
-\newblock On compiler error messages: What they say and what they mean.
-\newblock In Advances in Human-Computer Interaction, 2010.
-  
-  	\end{thebibliography}
-	
-	\linespace
-	\begin{center}
-	See my senior seminar paper for additional references.
-	\end{center}
-\end{frame} 
 
 \end{document}
 
