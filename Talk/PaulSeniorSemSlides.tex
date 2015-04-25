@@ -86,13 +86,16 @@
   	\item Error messages produced from programming mistakes
   	\item Tells the user information about the issue
   	\item Here's an example of an error message (in Java):
+  	\begin{itemize}
+  		\item \texttt{->} denotes output
+  	\end{itemize}
   	  \begin{verbatim}
 int three = 3;
 System.out.print(tree);
+
 -> error: 
 `tree' cannot be resolved to a variable
   	\end{verbatim}
-  	\item \texttt{->} denoted as output
   \end{itemize}
 \end{frame}
 
@@ -106,7 +109,7 @@ System.out.print(tree);
   	\end{itemize}
   	\item A good error message should:
   	\begin{itemize}
-  		\item be easy to understand
+  		\item convey the actual issue
   		\item help a student locate the issue
   		\item not add confusion
   	\end{itemize}
@@ -143,11 +146,14 @@ System.out.print(tree);
 \begin{frame}[fragile]
 	\frametitle{Compiler errors}
 		\begin{itemize}
-			\item Compiler errors occur when there are errors in the code the compiler finds
+			\item Compiler: converts code to lower level language so instructions can be computed
+			\item Compiler errors occur when code cannot be compiled due to errors
+			\item Program will not execute
 			\item For newer programmers, these typically occur from syntax errors
 			\item Example (in Java):
 			\begin{verbatim}
 		int seven = (2 + 5;
+		
 		-> error: ')' expected
 			\end{verbatim}
 		\end{itemize}
@@ -157,12 +163,14 @@ System.out.print(tree);
 	\frametitle{Runtime errors}
 		\begin{itemize}
 			\item Runtime error occurs after a program has compiled, during execution of the program
+			\item Dependent on values that may not be known at compile time
 			\item Usually indication of logical errors in the code
-			\item Cannot be found by compiler, dependent on the values
 			\item Example:
 			\begin{verbatim}
-String string = "hello";
-System.out.print(string.substring(3,6));
+String theString = "hello";
+int low = 3;
+int high = 6;
+System.out.print(theString.substring(low,high));
 
 -> java.lang.StringIndexOutOfBoundsException:
 String index out of range: 6
@@ -201,17 +209,18 @@ String index out of range: 6
 
 \section[Analyses]{Analyses of error messages}
 
-\subsection[DrRacket Analysis]{Analysis of DrRacket IDE}
+\subsection[DrRacket Analysis]{Analysis of Racket and DrRacket}
 
 \begin{frame}[fragile]
 	\frametitle{Racket programming language}
 		\begin{itemize}
-			\item Programming language useful for teaching in introductory courses
+			\item Racket: Programming language useful for teaching in introductory courses
 			\item Functional language: computation as a composition of functions, retains immutable data, avoids changing state
-			\item dynamically typed
+			\item Dynamically typed
 			\item Syntax example:
 			\begin{verbatim}
 			(+ 1 2)
+
 			-> 3
 			\end{verbatim}
 		\end{itemize}
@@ -221,7 +230,7 @@ String index out of range: 6
 \begin{frame}
 	\frametitle{DrRacket integrated development environment}
 		\begin{itemize}
-			\item An integrated development environment (IDE) is a program for writing and running code
+			\item An integrated development environment (IDE) is a program for writing and running code along with debugging tools
 			\item DrRacket is an IDE for developing programs in Racket
 			\item Geared toward introductory programmers
 			\item DrRacket offers user-friendly error messages and libraries
@@ -239,8 +248,8 @@ String index out of range: 6
 	\frametitle{Study of DrRacket error messages}
 		\begin{itemize}
 		  	\item Marceau et al. noticed students struggling with error messages in course
+		  	\item Interested in which errors students struggled with
 			\item Conducted study on DrRacket error messages in Spring 2010
-			\item Interested in which errors students struggled with
 			\item Hoping to use data to improve student interactions with DrRacket error messages
 
 		\end{itemize}
@@ -263,20 +272,6 @@ String index out of range: 6
             };
         \end{tikzpicture}
 	%\includegraphics[width=\paperwidth]{MEE-data.pdf}
-
-\end{frame}
-
-
-\begin{frame}
-	\frametitle{Results}
-		\begin{itemize}
-			\item Errors were difficult relative to course material
-			\item Some errors were not indicator of underlying issue
-			\begin{itemize}
-			\item students struggled with these errors
-			\item suggests issues in error message effectiveness
-			\end{itemize}
-		\end{itemize}
 
 \end{frame}
 
@@ -321,7 +316,7 @@ String index out of range: 6
 		\only{\tiny{Marceau et al.}}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[fragile]
  \frametitle{Student edit example continued}
  	%\begin{tikzpicture}[remember picture,overlay]
        %     \node[at=(current page.center)] {
@@ -330,7 +325,33 @@ String index out of range: 6
        % \end{tikzpicture}
        \includegraphics[width=0.9\paperwidth]{RacketStudentEditPt2.pdf}
        		\\
-		\only{\tiny{Marceau et al.}}
+		\only{{\tiny Marceau et al.}}
+		
+		\begin{itemize}
+ 			\item Student did not fix error
+ 			\item Fixed code:
+		\end{itemize}
+		\includegraphics[width=0.9\paperwidth]{fixedCode.png}
+%		\scriptsize{
+%		\begin{verbatim}
+%(define (string-one-of? check-for-match stringOne stringTwo stringThree)
+%  (cond [(string=? check-for-match)]
+%        [(string=? check-for-match stringTwo)]
+%        [(string=? check-for-match stringThree)]))
+%		\end{verbatim}}
+\end{frame}
+
+\begin{frame}
+	\frametitle{Results}
+		\begin{itemize}
+			\item Errors that were difficult to resolve was relative to course material
+			\item Some errors were not indicator of underlying issue
+			\begin{itemize}
+				\item students struggled with these errors
+				\item suggests issues in error message effectiveness
+			\end{itemize}
+			\item Further research on understanding actual underlying errors and improving DrRacket error messages
+		\end{itemize}
 \end{frame}
 
 \subsection[Compiler Analysis]{Analysis of compiler errors}
@@ -338,9 +359,9 @@ String index out of range: 6
 \begin{frame}
 	\frametitle{Analysis of compiler errors}
 		\begin{itemize}
-			\item Compiler error messages often difficult
-			\item Traver interested in finding errors students struggled with
-			\item Conducted study in Fall 2010 at Jaume I University
+			\item Students struggle with compiler error messages in course taught by V. Javier Traver at Jaume I University
+			\item Traver interested in finding compiler error messages students struggled with
+			\item Conducted study in Fall 2010
 				\begin{itemize}
 				\item course used C++ programming language
 				\end{itemize}
@@ -355,7 +376,7 @@ String index out of range: 6
 \begin{frame}[fragile]
 	\frametitle{Intro to C++}
 		\begin{itemize}
-			\item Not designed to be taught in intro course
+			\item C++: Programming language not designed to be taught in intro course
 			\item Imperative language: uses memory manipulation and state-changing statements
 			\item Statically-typed
 			\item Syntax example:
@@ -363,6 +384,7 @@ String index out of range: 6
 			int a = 2;
 			a = a + 2;
 			cout << a << endl;
+			
 			-> 4
 			\end{verbatim}
 		\end{itemize}
@@ -378,7 +400,7 @@ String index out of range: 6
 			\begin{itemize}
 				\item why the error occurred
 				\item possible alternative error message
-				\item why the error is unhelpful
+				\item why the error message is unhelpful
 			\end{itemize}
 		\end{itemize}
 
@@ -389,9 +411,9 @@ String index out of range: 6
 Offending code (missing curly brace):
 \begin{verbatim}
 1 SavingAccount::SavingAccount(){
-2     float SavingAccount::getInterestRate() {
+2     float SavingAccount::getInterestRate(){
 3    	  return rate;
-4 }
+4     }
 \end{verbatim}
 
 Error message:
@@ -426,7 +448,6 @@ body of the previous function definition?
 	\frametitle{Results}
 		\begin{itemize}
 			\item No quantitative data, just observations
-			\item Makes a good case to improve compiler error message usability
 			\item Hopes that approaches be considered to improve messages
 			\item Future work: develop methods to improve messages in course
 		\end{itemize}
@@ -440,6 +461,7 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Recommendations}
 		\begin{itemize}
+			\item Recommendations on error message design
 			\item Marceau et al. used previous research
 			\item Wanted to maintain two design principles:
 			\begin{itemize}
@@ -451,7 +473,7 @@ body of the previous function definition?
 \end{frame}
 
 \begin{frame}[fragile]
-	\frametitle{recommendations continued}
+	\frametitle{Recommendations continued}
 		\begin{itemize}
 			\item Simplify message vocabulary
 				\begin{itemize}
@@ -539,11 +561,11 @@ body of the previous function definition?
 \begin{frame}
 	\frametitle{Testing the enhanced syntax messages}
 		\begin{itemize}
-			\item Control group (original error messages) and intervention group (enhanced error messages)
+			\item Students from course in control group (original error messages) and intervention group (enhanced error messages)
 			\item Compared attempts of student submissions
 			\item Used t-tests to find results
 			\begin{itemize}
-				\item t-test: finds if there is statistical significant difference between two data groups
+				\item t-test: finds if there is statistically significant difference between two data groups
 			\end{itemize}
 		\end{itemize}
 
@@ -554,9 +576,11 @@ body of the previous function definition?
 		\begin{itemize}
 			\item t-tests gave high p-values (p > 0.05)
 				\begin{itemize}
-				\item indication of no evidence of statistical significant difference
+				\item indication of no evidence of statistically significant difference
+				\item note: not all tests shown
+				\item this test compares longest consecutive failing submissions 
 				\end{itemize}
-				TODO: Make table of results of p-values
+			\includegraphics[keepaspectratio, width=0.75\textwidth]{EnhancedSyntaxData.pdf}
 		\end{itemize}
 
 \end{frame}
@@ -578,15 +602,17 @@ body of the previous function definition?
 \section[Conclusions]{Conclusions}
 
 \begin{frame}
-	\frametitle{Conclusions and future work}
+	\frametitle{Conclusions}
 		\begin{itemize}
-			\item Marceau et al. apply additional research to determine changes in curriculum and DrRacket
-			\item Study by Traver, hopes to implement developed alternative error messages in course
-			\item Marceau et al. HtDP libraries, requires further evaluation
-			\item Denny et al. hope to further study their enhanced syntax error messages
+			\item Error message usability is crucial in programming
+			\item More efforts needed on error message usability
+			\item Research shows error messages are difficult to deal with
 			\begin{itemize}
-				\item testing was helpful in evaluation of program
-			\end{itemize}	
+				\item Marceau et al. found error messages do not always show underlying issue
+				\item Study by Traver, compiler error messages show poor usability
+				\item Marceau et al. recommendations in HtDP
+				\item Denny et al. enhanced syntax error messages were ineffective
+			\end{itemize}
 		\end{itemize}
 
 \end{frame}
@@ -631,19 +657,19 @@ body of the previous function definition?
 	
 	\bibitem{citeulike:3452411}
 Marceau, G., Fisler, K., and Krishnamurthi s.
-\newblock Measuring the effectiveness of error messages designed for novice programmers.
+\newblock Measuring the effectiveness of error messages designed for novice programmers. 2011.
 
 	\bibitem{citeulike:3452411}
 Marceau, G., Fisler, K., and Krishnamurthi s.
-\newblock Mind your language: On novices' interactions with error messages
+\newblock Mind your language: On novices' interactions with error messages. 2011.
 
 \bibitem{citeulike:3452411}
 Denny, P., Luxton-Reilly, A., and Carpenter, D.
-\newblock Enhancing syntax error messages appears ineffectual
+\newblock Enhancing syntax error messages appears ineffectual. 2014.
 	
 	\bibitem{citeulike:3452411}
 	Traver, V.J.
-\newblock On compiler error messages: What they say and what they mean.
+\newblock On compiler error messages: What they say and what they mean. 2010.
   
   	\end{thebibliography}
 	
